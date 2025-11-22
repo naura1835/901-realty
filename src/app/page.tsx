@@ -14,9 +14,9 @@ import {
   ItemDescription,
   ItemMedia,
 } from "@/components/ui/item";
-import LeafIcon from "./icons/leaf";
-import LightBulbIcon from "./icons/light-bulb";
-import ShieldIcon from "./icons/shield";
+import LeafIcon from "../icons/leaf";
+import LightBulbIcon from "../icons/light-bulb";
+import ShieldIcon from "../icons/shield";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/shared/Footer";

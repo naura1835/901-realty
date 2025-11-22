@@ -8,11 +8,11 @@ import { XIcon } from "lucide-react";
 import Image from "next/image";
 
 const menuItems = [
-  { id: 0, title: "About us", url: "#" },
-  { id: 1, title: "Works", url: "#" },
+  { id: 0, title: "About us", url: "/about-us" },
+  { id: 1, title: "Works", url: "/contact-us" },
   { id: 2, title: "Smart housing", url: "#" },
   { id: 3, title: "Services", url: "#" },
-  { id: 4, title: "Get in touch", style: "link-btn", url: "#" },
+  { id: 4, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -28,7 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="relative">
-      <nav className="fixed inset-0 z-1000 mx-5 flex h-fit items-center justify-between pt-12 lg:mx-14">
+      <nav className="fixed inset-0 z-1000 mx-5 flex h-fit items-center justify-between pt-10 md:pt-12 lg:mx-14">
         <Link href="/">
           <Image
             src={
@@ -63,7 +63,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </Button>
 
           <ul
-            className={`transition-display absolute top-0 right-0 z-20 flex list-none flex-col items-center rounded-md bg-white p-4 shadow-sm inset-shadow-2xs md:relative md:flex-row md:p-2 md:pl-4 ${openMenu && isMobile ? "visible w-[calc(100vw-3rem)] bg-transparent shadow-none! inset-shadow-transparent! transition-all delay-500" : "invisible md:visible"}`}
+            className={`transition-display absolute top-0 right-0 z-20 flex list-none flex-col items-start rounded-md bg-white p-4 shadow-sm inset-shadow-2xs md:relative md:flex-row md:items-center md:p-2 md:pl-4 ${openMenu && isMobile ? "visible w-[calc(100vw-3rem)] bg-transparent shadow-none! inset-shadow-transparent! transition-all delay-500" : "invisible md:visible"}`}
           >
             <span
               className="cursor-pointer self-end md:hidden"
@@ -80,6 +80,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               >
                 <Link
                   href={item.url}
+                  onClick={() => setOpenMenu(false)}
                   className={`inline-block text-xs font-semibold uppercase transition-opacity duration-75 ease-linear ${
                     item.style === "link-btn"
                       ? "bg-foreground rounded-md px-4 py-3 text-white"

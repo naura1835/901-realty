@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const menuItems = [
-  { id: 0, title: "About us", url: "#" },
-  { id: 1, title: "Works", url: "#" },
+  { id: 0, title: "About us", url: "/about-us" },
+  { id: 1, title: "Works", url: "/contact-us" },
   { id: 2, title: "Smart housing", url: "#" },
-  { id: 3, title: "Get in touch", style: "link-btn", url: "#" },
+  { id: 3, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];
 
 const Footer = () => {
