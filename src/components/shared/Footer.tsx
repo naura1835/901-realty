@@ -31,20 +31,22 @@ const Footer = () => {
           ))}
         </ul>
       </div>
-      <ul className="flex list-none flex-col items-center gap-3 pt-14 md:flex-row md:justify-center md:gap-8">
-        <li className="text-center text-sm font-semibold uppercase">
-          instagram
-        </li>
-        <li className="text-center text-sm font-semibold uppercase">
-          privacy policy
-        </li>
-        <li className="text-center text-sm font-semibold uppercase">
-          © 2025 901REALTY
-        </li>
-        <li className="text-center text-sm font-semibold uppercase">
-          MADE BY NAURACODES
-        </li>
-      </ul>
+      <div className="@container">
+        <ul className="flex list-none flex-col items-center gap-3 pt-14 sm:justify-center md:gap-8 @sm:flex-row">
+          <li className="text-center text-xs font-semibold uppercase">
+            instagram
+          </li>
+          <li className="text-center text-xs font-semibold uppercase">
+            privacy policy
+          </li>
+          <li className="text-center text-xs font-semibold uppercase">
+            © 2025 901REALTY
+          </li>
+          <li className="text-center text-xs font-semibold uppercase">
+            MADE BY NAURACODES
+          </li>
+        </ul>
+      </div>
     </footer>
   );
 };

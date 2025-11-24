@@ -197,20 +197,20 @@ export default function Home() {
         <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
           <div className="my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-10 md:max-w-[400px]">
             <Image
-              src={"/construction-02.jpeg"}
+              src={"/construction-img.jpeg"}
+              alt="construction"
+              height={3000}
+              width={3000}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+          <div className="my-12 h-48 w-full max-w-[90%] justify-self-end sm:h-[250px] md:justify-self-center">
+            <Image
+              src={"/rooftop-in-progress-0001.png"}
               alt="construction"
               height={3000}
               width={3000}
               className="h-full w-full object-cover object-bottom"
-            />
-          </div>
-          <div className="my-12 h-48 w-full max-w-[90%] justify-self-end md:justify-self-center">
-            <Image
-              src={"/construction-01.jpeg"}
-              alt="construction"
-              height={3000}
-              width={3000}
-              className="h-full w-full object-cover object-top"
             />
           </div>
           <h3 className="mt-14 mb-7 text-xl font-medium text-white uppercase md:row-start-1 md:self-center md:text-2xl lg:text-4xl">
@@ -246,9 +246,17 @@ export default function Home() {
       </section>
       <section
         aria-labelledby="start-project"
-        className="grid grid-cols-1 p-5 sm:p-10 md:grid-cols-2 lg:p-14"
+        className="grid grid-cols-1 gap-5 p-5 sm:p-10 md:grid-cols-2 lg:p-14"
       >
-        <div>{/* image here */}</div>
+        <div className="h-[350px] w-full max-w-[300px] justify-self-end md:h-[500px] md:max-w-[400px] md:justify-self-center">
+          <Image
+            src={"/frontview-wip-house.png"}
+            alt="construction"
+            height={3000}
+            width={3000}
+            className="h-full w-full object-cover object-bottom"
+          />
+        </div>
         <div className="space-y-4 place-self-center">
           <h2
             id="start-project"

@@ -9,8 +9,8 @@ import Image from "next/image";
 
 const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
-  { id: 1, title: "Works", url: "/contact-us" },
-  { id: 2, title: "Smart housing", url: "#" },
+  { id: 1, title: "Works", url: "/works" },
+  { id: 2, title: "Smart housing", url: "/smart-housing" },
   { id: 3, title: "Services", url: "#" },
   { id: 4, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];

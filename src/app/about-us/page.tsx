@@ -20,7 +20,7 @@ const AboutUs = () => {
       </div>
       <div className="flex flex-col gap-4 lg:col-start-1 lg:row-start-1">
         <div className="space-y-3">
-          <h3 className="text-2xl font-medium uppercase md:text-4xl">
+          <h3 className="text-2xl font-medium uppercase md:text-3xl lg:text-4xl">
             Building With Purpose. Innovating for the Future.
           </h3>
           <p className="text-sm font-medium">
