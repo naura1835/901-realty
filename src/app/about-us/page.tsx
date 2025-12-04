@@ -55,8 +55,16 @@ const AboutUs = () => {
         </div>
         <div className="space-y-2.5 md:flex md:gap-7 md:space-y-0 lg:absolute lg:right-14 lg:bottom-0">
           <p className="text-sm font-semibold uppercase">Contact us</p>
-          <p className="text-sm">080 928 09812</p>
-          <p className="text-sm">example@gmail.com</p>
+          <p className="text-sm">
+            <a href="tel:08033486662" className="no-underline">
+              080 334 866 62
+            </a>
+          </p>
+          <p className="text-sm">
+            <a href="mailto:901concepts@gmail.com" className="no-underline">
+              901concepts@gmail.com
+            </a>
+          </p>
         </div>
       </div>
       <TitleSection

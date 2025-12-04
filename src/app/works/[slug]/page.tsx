@@ -17,9 +17,9 @@ const WorkDetails = () => {
   const details: Project | undefined = data?.projectCollection.items[0];
 
   return (
-    <div>
+    <div className="min-h-screen">
       {details !== undefined && (
-        <div className="min-h-screen">
+        <div className="space-y-[50px]">
           <div className="relative h-dvh w-full">
             {details?.video?.url ? (
               <VideoPlayer videoUrl={details?.video?.url} />
@@ -33,12 +33,12 @@ const WorkDetails = () => {
                 }
                 height={3000}
                 width={3000}
-                className="h-screen w-full object-cover"
+                className="h-full w-full object-cover"
               />
             )}
           </div>
 
-          <div className="my-[50px] grid grid-cols-1 items-end gap-8 px-5 sm:px-10 md:grid-cols-2 md:gap-10 lg:px-14">
+          <div className="mb-[50px] grid grid-cols-1 items-end gap-8 px-5 sm:px-10 md:grid-cols-2 md:gap-10 lg:px-14">
             <div className="flex flex-col justify-between gap-5 sm:col-span-2 xl:col-span-1">
               <div className="flex flex-col gap-3">
                 <p className="text-foreground text-sm font-bold uppercase">

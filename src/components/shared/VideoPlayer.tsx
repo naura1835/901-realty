@@ -54,7 +54,8 @@ const VideoPlayer = ({
     }
   };
 
-  const toggleVolume = () => {
+  const toggleVolume = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     if (!videoRef.current) return;
 
     const newVolumeState = !volumeOn;

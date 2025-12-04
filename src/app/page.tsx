@@ -269,7 +269,7 @@ export default function Home() {
             team is here to help.
           </p>
           <Button size="lg" asChild className="py-6">
-            <Link href="/">TELL US ABOUT YOUR PROJECT</Link>
+            <Link href="/contact-us">TELL US ABOUT YOUR PROJECT</Link>
           </Button>
         </div>
       </section>

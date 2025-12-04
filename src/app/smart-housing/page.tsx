@@ -15,7 +15,7 @@ const SmartHousingPage = () => {
   });
 
   return (
-    <div>
+    <div className="space-y-8">
       <div className="relative h-dvh w-full">
         <Image
           src="/motion-sensor-light.jpg"
@@ -28,7 +28,7 @@ const SmartHousingPage = () => {
           Smart living
         </h1>
       </div>
-      <section className="relative mt-8 grid grid-cols-1 gap-8 overflow-hidden p-5 sm:p-10 md:grid-cols-2 md:gap-y-0 lg:px-14">
+      <section className="relative grid grid-cols-1 gap-8 overflow-hidden p-5 sm:p-10 md:grid-cols-2 md:gap-y-0 lg:px-14">
         <div aria-labelledby="smart-housing" className="w-full space-y-3">
           <h2
             id="smart-housing"

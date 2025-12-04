@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { XIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
@@ -19,12 +20,21 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [hovered, setHovered] = useState<number | null>(null);
   const [openMenu, setOpenMenu] = useState(false);
   const isMobile = useIsMobile();
+  const router = useRouter();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!isMobile) setOpenMenu(true);
-    else setOpenMenu(false);
-  }, [isMobile]);
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      if (mobile) {
+        setOpenMenu(false);
+      } else {
+        setOpenMenu(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="relative">
@@ -80,7 +90,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               >
                 <Link
                   href={item.url}
-                  onClick={() => setOpenMenu(false)}
+                  onNavigate={(e) => {
+                    if (isMobile) {
+                      e.preventDefault();
+                      setOpenMenu(false);
+
+                      setTimeout(() => router.push(item.url), 300);
+                    }
+                  }}
                   className={`inline-block text-xs font-semibold uppercase transition-opacity duration-75 ease-linear ${
                     item.style === "link-btn"
                       ? "bg-foreground rounded-md px-4 py-3 text-white"
@@ -98,11 +115,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </ul>
         </div>
       </nav>
-      <main>
-        {/* <div className="h-[50vh]"></div> */}
-        {/* className="px-5 lg:px-14" */}
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   );
 };
