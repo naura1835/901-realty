@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Montserrat } from "next/font/google";
 import "./globals.css";
 import MainLayout from "@/components/layout";
+import Providers from "@/components/layout/Providers";
+import { Toaster } from "@/components/ui/sonner";
+import PreLoader from "@/components/layout/PreLoader";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -29,7 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${montserrat.variable} antialiased`}
       >
-        <MainLayout>{children}</MainLayout>
+        <Providers>
+          <PreLoader>
+            <MainLayout>{children}</MainLayout>
+          </PreLoader>
+        </Providers>
+        <Toaster />
       </body>
     </html>
   );

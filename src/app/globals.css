@@ -122,3 +122,9 @@
     @apply font-montserrat text-foreground;
   }
 }
+
+.logo--icon,
+.logo--text {
+  visibility: hidden;
+  opacity: 0;
+}

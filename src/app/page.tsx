@@ -20,6 +20,7 @@ import ShieldIcon from "../icons/shield";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/shared/Footer";
+import VideoPlayer from "@/components/shared/VideoPlayer";
 
 const chooseUsItems = [
   {
@@ -51,13 +52,9 @@ const chooseUsItems = [
 export default function Home() {
   return (
     <div>
-      <Image
-        src="/901-realty-container.jpg"
-        alt="901 realty container in front of a house construction"
-        height={3000}
-        width={3000}
-        className="h-screen w-full object-cover object-top"
-      />
+      <div className="h-screen w-full">
+        <VideoPlayer videoUrl="/img_3120_v1.mp4" autoPlay showVolumeBtn />
+      </div>
       <div className="mt-9 px-5 md:mt-16 lg:px-14">
         <h1 className="mx-auto mb-1 w-full max-w-[880px] text-center text-2xl leading-[130%] font-medium uppercase sm:text-4xl lg:text-5xl">
           Crafting Modern Spaces with Expertise, Innovation & Trust
@@ -127,6 +124,7 @@ export default function Home() {
       </div>
       <section
         aria-labelledby="services we offer"
+        id="services"
         className="relative bg-[#212529] py-14 text-white after:absolute after:bottom-0 after:left-1/2 after:h-16 after:w-px after:bg-white/50 after:content-[''] md:after:left-[45%] lg:pt-20"
       >
         <div className="relative grid grid-cols-1 px-5 pb-4 before:absolute before:bottom-0 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] md:grid-cols-2 md:after:absolute md:after:-top-14 md:after:left-[52%] md:after:h-[calc(100%+56px)] md:after:w-px md:after:bg-white/50 md:after:content-[''] lg:px-14 lg:after:-top-20 lg:after:h-[calc(100%+80px)]">
@@ -250,7 +248,7 @@ export default function Home() {
       >
         <div className="h-[350px] w-full max-w-[300px] justify-self-end md:h-[500px] md:max-w-[400px] md:justify-self-center">
           <Image
-            src={"/frontview-wip-house.png"}
+            src={"/Image-2025-11-26.jpeg"}
             alt="construction"
             height={3000}
             width={3000}

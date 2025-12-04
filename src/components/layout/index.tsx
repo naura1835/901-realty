@@ -11,7 +11,7 @@ const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
   { id: 1, title: "Works", url: "/works" },
   { id: 2, title: "Smart housing", url: "/smart-housing" },
-  { id: 3, title: "Services", url: "#" },
+  { id: 3, title: "Services", url: "/#services" },
   { id: 4, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];
 
@@ -28,7 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="relative">
-      <nav className="fixed inset-0 z-1000 mx-5 flex h-fit items-center justify-between pt-10 md:pt-12 lg:mx-14">
+      <nav className="fixed inset-0 z-10 mx-5 flex h-fit items-center justify-between pt-10 md:pt-12 lg:mx-14">
         <Link href="/">
           <Image
             src={

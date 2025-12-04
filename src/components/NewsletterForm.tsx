@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FieldGroup, FieldSet } from "@/components/ui/field";
 import FormInput from "@/components/ui/formInput";
-import { NewsletterSchema, NewsletterType } from "@/lib/contact-us";
+import { NewsletterSchema, NewsletterType } from "@/lib/validations/contact-us";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
