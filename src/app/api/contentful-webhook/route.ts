@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const title = body.fields?.name?.["en-US"] || "New Smart Home Release";
     const slug = body.fields?.slug?.["en-US"] || "";
-    const description = body.fields?.description?.["en-US"]
-      ? documentToReactComponents(body.fields?.description?.["en-US"])
-      : "A new smart home innovation has been published";
+    const description =
+      body.fields?.shortDescription?.["en-US"] ||
+      "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
     const featuredImage = body.fields.featuredImage?.["en-US"] || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;

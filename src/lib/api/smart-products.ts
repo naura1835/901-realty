@@ -5,6 +5,7 @@ export type SmartProduct = {
   name: string;
   slug: string;
   description: { json: Document };
+  shortDescription?: string;
   featuredImage: {
     url: string;
     title?: string;
