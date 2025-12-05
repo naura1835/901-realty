@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server";
+import mailchimp from "@mailchimp/mailchimp_marketing";
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY || "",
+  server: process.env.MAILCHIMP_SERVER_PREFIX || "",
+});
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +15,7 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields?.featuredImage?.fields.url["en-US"] || "";
+    const featuredImage = body.fields?.featuredImage?.file.url || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -19,23 +25,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const campaign = await fetch(
-      "https://connect.mailerlite.com/api/campaigns",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
-        },
-        body: JSON.stringify({
-          name: `New Smart Home Innovation: ${title}`,
-          type: "regular",
-          emails: [
-            {
-              subject: title,
-              from_name: "Mubarak Bala",
-              from: "news@901realty.ng",
-              content: `<!DOCTYPE html>
+    const campaign = await mailchimp.campaigns.create({
+      type: "regular",
+      recipients: {
+        list_id: process.env.MAILCHIMP_AUDIENCE_ID || "",
+      },
+      settings: {
+        subject_line: `New Smart Home Innovation: ${title}`,
+        title: `${title}`,
+        from_name: "901 Realty",
+        reply_to: "news@901realty.ng",
+      },
+    });
+
+    if (!("id" in campaign)) {
+      return NextResponse.json(
+        { error: "Failed to create campaign", details: campaign },
+        { status: 500 },
+      );
+    }
+
+    const html = `<!DOCTYPE html>
               <html lang="en">
                 <head>
                   <meta charset="UTF-8" />
@@ -130,47 +140,15 @@ export async function POST(request: Request) {
                   </div>
                 </body>
               </html>
-            `,
-            },
-          ],
-          groups: [process.env.MAILERLITE_GROUP_ID],
-        }),
-      },
+            `;
+
+    await mailchimp.campaigns.setContent(campaign.id, { html });
+    await mailchimp.campaigns.send(campaign.id);
+
+    return NextResponse.json(
+      { message: "Campaign Created and Sent!" },
+      { status: 200 },
     );
-
-    if (!campaign.ok) {
-      const errorText = await campaign.text();
-      return NextResponse.json(
-        { error: "Failed to create campaign", details: errorText },
-        { status: 500 },
-      );
-    }
-
-    const res = await campaign.json();
-
-    if (!res.data?.id) {
-      console.error("No campaign ID received:", res);
-      return NextResponse.json(
-        { error: "Campaign created but no ID received" },
-        { status: 500 },
-      );
-    }
-
-    const sendRes = await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res?.data?.id}/schedule`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
-        },
-        body: JSON.stringify({
-          delivery: "instant",
-        }),
-      },
-    );
-    console.log("MailerLite Campaign Created:", res, sendRes);
-
-    return NextResponse.json({ success: true, data: res });
   } catch (error) {
     console.error("Webhook error:", error);
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });

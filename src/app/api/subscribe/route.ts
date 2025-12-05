@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server";
+import mailchimp from "@mailchimp/mailchimp_marketing";
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY || "",
+  server: process.env.MAILCHIMP_SERVER_PREFIX || "",
+});
 
 export async function POST(request: Request) {
   try {
@@ -11,24 +17,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.MAILERLITE_NEWSLETTER_KEY}`,
-      },
-      body: JSON.stringify({
-        email,
-        groups: [process.env.MAILERLITE_GROUP_ID],
-      }),
-    });
+    const res = await mailchimp.lists.addListMember(
+      process.env.MAILCHIMP_AUDIENCE_ID || "",
+      { email_address: email, status: "subscribed" },
+    );
 
-    const data = await res.json();
-
-    if (!res.ok) {
+    if ("id" in res && !res.id) {
       return NextResponse.json(
-        { message: data.message || "Subscription failed" },
-        { status: res.status },
+        { message: "Subscription failed" },
+        { status: 500 },
       );
     }
 
