@@ -18,8 +18,20 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "901 Realty",
+  title: {
+    template: "%s | 901 Realty",
+    default: "901 Realty",
+  },
   description: "Building with precision one block at a time",
+  applicationName: "901 Realty Web",
+  creator: "Khadija Gwarzo",
+  // metadataBase: new URL('https://base_url'),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en-US",
+    },
+  },
 };
 
 export default function RootLayout({
@@ -37,7 +49,15 @@ export default function RootLayout({
             <MainLayout>{children}</MainLayout>
           </PreLoader>
         </Providers>
-        <Toaster />
+        <Toaster
+          position="top-center"
+          closeButton
+          toastOptions={{
+            classNames: {
+              description: "!text-foreground",
+            },
+          }}
+        />
       </body>
     </html>
   );

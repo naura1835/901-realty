@@ -35,7 +35,7 @@ const ContactForm = () => {
 
       if (!parsedData.success) return;
       const res = await emailjs.send(serviceId!, templateId!, values, apiKey!);
-      if (res?.status === 20) {
+      if (res?.status === 200) {
         toast.success("Message Sent successfully", {
           description:
             "Your message has been sent successfully, someone will respond to you shortly",

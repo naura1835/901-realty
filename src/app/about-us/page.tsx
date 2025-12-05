@@ -1,6 +1,12 @@
 import TitleSection from "@/components/shared/TitleSection";
-// import Blocks from "@/icons/blocks";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Discover the story behind 901 Realty. Learn how we bring precision, innovation, and craftsmanship to construction, real estate development, and smart housing.",
+};
 
 const AboutUs = () => {
   return (
@@ -56,12 +62,15 @@ const AboutUs = () => {
         <div className="space-y-2.5 md:flex md:gap-7 md:space-y-0 lg:absolute lg:right-14 lg:bottom-0">
           <p className="text-sm font-semibold uppercase">Contact us</p>
           <p className="text-sm">
-            <a href="tel:08033486662" className="no-underline">
-              080 334 866 62
+            <a href="tel:08033486662" className="text-foreground no-underline">
+              0 803 348 6662
             </a>
           </p>
           <p className="text-sm">
-            <a href="mailto:901concepts@gmail.com" className="no-underline">
+            <a
+              href="mailto:901concepts@gmail.com"
+              className="text-foreground no-underline"
+            >
               901concepts@gmail.com
             </a>
           </p>
