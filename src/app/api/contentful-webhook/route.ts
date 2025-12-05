@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields.featuredImage?.["en-US"] || "";
+    const featuredImage = body.fields?.featuredImage?.["en-US"] || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -33,7 +33,6 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           name: `New Smart Home Innovation: ${title}`,
           type: "regular",
-          subject: title,
           emails: [
             {
               subject: title,
@@ -69,7 +68,7 @@ export async function POST(request: Request) {
 
                         <div style="padding:25px;">
 
-                          <span style="display:inline-block;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:15px;background-color:#ffffff;border:1px solid #252422;color:#252422;text-transform:capitalize;">
+                          <span style="display:inline-block;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;background-color:#ffffff;border:1px solid #252422;color:#252422;text-transform:capitalize;">
                             ${availability}
                           </span>
 
@@ -160,8 +159,8 @@ export async function POST(request: Request) {
       );
     }
 
-    await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res.data.id}/actions/send`,
+    const sendRes = await fetch(
+      `https://connect.mailerlite.com/api/campaigns/${res?.data?.data?.id}/actions/send`,
       {
         method: "POST",
         headers: {
@@ -172,7 +171,7 @@ export async function POST(request: Request) {
         }),
       },
     );
-    console.log("MailerLite Campaign Created:", res);
+    console.log("MailerLite Campaign Created:", res, sendRes);
 
     return NextResponse.json({ success: true, data: res });
   } catch (error) {
