@@ -9,10 +9,7 @@ export async function POST(request: Request) {
       body.fields?.description?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields.featuredImage?.["en-US"]?.fields?.file
-      ?.url
-      ? "https://" + body.fields.featuredImage["en-US"].fields.file.url
-      : "";
+    const featuredImage = body.fields.featuredImage?.["en-US"] || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -141,9 +138,27 @@ export async function POST(request: Request) {
         }),
       },
     );
+
+    if (!campaign.ok) {
+      const errorText = await campaign.text();
+      return NextResponse.json(
+        { error: "Failed to create campaign", details: errorText },
+        { status: 500 },
+      );
+    }
+
     const res = await campaign.json();
+
+    if (!res.data?.id) {
+      console.error("No campaign ID received:", res);
+      return NextResponse.json(
+        { error: "Campaign created but no ID received" },
+        { status: 500 },
+      );
+    }
+
     await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res.id}/schedule`,
+      `https://connect.mailerlite.com/api/campaigns/${res.data.id}/schedule`,
       {
         method: "POST",
         headers: {
