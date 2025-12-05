@@ -9,7 +9,8 @@ export async function POST(request: Request) {
       body.fields?.description?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body?.fields?.featuredImage?.url || "";
+    const featuredImage =
+      body?.fields?.featuredImage["en-US"].fields.file.url || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -21,9 +22,6 @@ export async function POST(request: Request) {
 
     // Log or process the published entry
     console.log("SmartHomeInnovation published:", body);
-
-    // TODO: trigger revalidation if needed:
-    // await fetch(`${process.env.REVALIDATE_URL}/api/revalidate?tag=smartHome`);
 
     const campaign = await fetch(
       "https://connect.mailerlite.com/api/campaigns",
@@ -42,188 +40,99 @@ export async function POST(request: Request) {
               subject: title,
               from_name: "Mubarak Bala",
               from: "news@901realty.ng",
-              content: `
-              <!DOCTYPE html>
+              content: `<!DOCTYPE html>
               <html lang="en">
-              <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>New Product Launch</title>
-                
-                <style type="text/css">
-                *{
-                  margin:0;
-                  padding:0;
-                  box-sizing:border-box;
-                }
-                body{
-                  font-family:Arial, sans-serif;
-                  background-color:#f5f5f5;
-                  padding:20px;
-                }
-                .container{
-                  max-width:600px;
-                  margin:0 auto;
-                  background-color:#ffffff;
-                  box-shadow:0 2px 10px rgba(0,0,0,0.1);
-                }
-                .header{
-                  padding:40px 20px;
-                  text-align:center;
-                  background-color:#ffffff;
-                }
-                .header img{
-                  width: 300px;
-                  object-fit: cover;
-                }
-                .content{
-                  padding:40px 30px;
-                }
-                .product-card{
-                  overflow:hidden;
-                  margin-bottom:30px;
-                }
-                .product-image{
-                  width:100%;
-                  height:300px;
-                  background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                  display:flex;
-                  align-items:center;
-                  justify-content:center;
-                  color:white;
-                  font-size:18px;
-                }
-                .product-details{
-                  padding:25px;
-                }
-                .product-name{
-                  font-size:24px;
-                  font-weight:bold;
-                  color:#333;
-                  margin-bottom:10px;
-                }
-                .availability{
-                  display:inline-block;
-                  padding:6px 12px;
-                  border-radius:20px;
-                  font-size:12px;
-                  font-weight:bold;
-                  margin-bottom:15px;
-                  background-color:white;
-                  text-transform:capitalize;
-                  border:1px solid #252422;
-                  color:#252422;
-                  border-color:#252422;
-                }
-                .product-description{
-                  color:#666;
-                  line-height:1.6;
-                  font-size:14px;
-                }
-                .cta-button{
-                  display:inline-block;
-                  background-color:#252422;
-                  color:white;
-                  padding:12px 30px;
-                  text-decoration:none;
-                  border-radius:5px;
-                  margin-top:20px;
-                  font-weight:bold;
-                  transition:background-color 0.3s;
-                }
-                .cta-button:hover{
-                  background-color:oklab(20% 0.00037 0.00392);
-                }
-                .footer{
-                  background-color:#F4F3EE;
-                  padding:30px 20px;
-                  text-align:center;
-                }
-                .social-links{
-                  margin-bottom:20px;
-                }
-                .social-links a{
-                  display:inline-block;
-                  margin:0 10px;
-                }
-                .social-links img{
-                  width:32px;
-                  height:32px;
-                }
-                .contact-info{
-                  color:#666;
-                  font-size:14px;
-                  line-height:1.8;
-                }
-                .contact-info a{
-                  color:#667eea;
-                  text-decoration:none;
-                }
-                .contact-info p{
-                  margin:5px 0;
-                }
-                .divider{
-                  height:1px;
-                  background-color:#ddd;
-                  margin:20px 0;
-                }
-              @media only screen and (max-width: 480px){
-                table#canspamBar td{
-                  font-size:14px !important;
-                }
+                <head>
+                  <meta charset="UTF-8" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                  <title>New Product Launch</title>
+                </head>
 
-            }	@media only screen and (max-width: 480px){
-                table#canspamBar td a{
-                  display:block !important;
-                  margin-top:10px !important;
-                }
+                <body style="margin:0;padding:20px;background-color:#f5f5f5;font-family:Arial, sans-serif;">
+                  <div style="max-width:600px;margin:0 auto;background-color:#ffffff;">
 
-            }
-          </style>
-        </head>
-      <body>
-        <div class="container">
-            <!-- Header -->
-            <div class="header">
-            <img src="${logo}" alt="901 realty logo" />
-            </div>
-            
-            <!-- Content -->
-            <div class="content">
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="${featuredImage}" alt="${title}" />
+                    <!-- Header -->
+                    <div style="padding:40px 20px;text-align:center;background-color:#ffffff;">
+                      <img src="${logo}" alt="901 realty logo" style="width:300px;object-fit:cover;" />
                     </div>
-                    <div class="product-details">
-                        <span class="availability">${availability}</span>
-                        <h2 class="product-name">${title}</h2>
-                        <p class="product-description">
-                            ${description}</p>
-                        <a href="${entryUrl}" class="cta-button">View Product</a>
+
+                    <!-- Content -->
+                    <div style="padding:40px 30px;">
+
+                      <div style="overflow:hidden;margin-bottom:30px;">
+
+                        <div style="width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
+                          <img src="${featuredImage}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
+                        </div>
+
+                        <div style="padding:25px;">
+
+                          <span style="display:inline-block;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:15px;background-color:#ffffff;border:1px solid #252422;color:#252422;text-transform:capitalize;">
+                            ${availability}
+                          </span>
+
+                          <h2 style="font-size:24px;font-weight:bold;color:#333;margin-bottom:10px;">
+                            ${title}
+                          </h2>
+
+                          <p style="color:#666;line-height:1.6;font-size:14px;">
+                            ${description}
+                          </p>
+
+                          <a href="${entryUrl}"
+                            style="display:inline-block;background-color:#252422;color:#ffffff;padding:12px 30px;text-decoration:none;border-radius:5px;margin-top:20px;font-weight:bold;">
+                            View Product
+                          </a>
+
+                        </div>
+                      </div>
                     </div>
-                </div>
-            </div>
-        
-            <!-- Footer -->
-            <div class="footer">    
-                <div class="contact-info">
-                  <p><strong>Instagram:</strong> <a href="https://www.instagram.com/901.realty/">@901realty</a></p>
-                    <p><strong>Website:</strong> <a href="https://www.901realty.ng">www.901realty.ng</a></p>
-                    <div class="divider"></div>
-                    <p><strong>Email:</strong> <a href="mailto:901concepts@gmail.com">901concepts@gmail.com</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:08033486662">(+234) 803 348 6662</a></p>
-                    <p><strong>Address:</strong> Suite 09 Kaltume House, Maiduguri Road, Kano, Nigeria</p>
-                </div>
-                
-                <div class="divider"></div>
-                <p style="font-size: 12px; color: #999; margin-top: 15px;">
-                    © 901 Realty. All rights reserved.
-                </p>
-            </div>
-        </div>
-      </body>
-    </html>
-              `,
+
+                    <!-- Footer -->
+                    <div style="background-color:#F4F3EE;padding:30px 20px;text-align:center;">
+
+                      <div style="color:#666;font-size:14px;line-height:1.8;">
+                        <p><strong>Instagram:</strong>
+                          <a href="https://www.instagram.com/901.realty/" style="color:#667eea;text-decoration:none;">
+                            @901realty
+                          </a>
+                        </p>
+
+                        <p><strong>Website:</strong>
+                          <a href="https://www.901realty.ng" style="color:#667eea;text-decoration:none;">
+                            www.901realty.ng
+                          </a>
+                        </p>
+
+                        <div style="height:1px;background-color:#ddd;margin:20px 0;"></div>
+
+                        <p><strong>Email:</strong>
+                          <a href="mailto:901concepts@gmail.com" style="color:#667eea;text-decoration:none;">
+                            901concepts@gmail.com
+                          </a>
+                        </p>
+
+                        <p><strong>Phone:</strong>
+                          <a href="tel:08033486662" style="color:#667eea;text-decoration:none;">
+                            (+234) 803 348 6662
+                          </a>
+                        </p>
+
+                        <p><strong>Address:</strong> Suite 09 Kaltume House, Maiduguri Road, Kano, Nigeria</p>
+                      </div>
+
+                      <div style="height:1px;background-color:#ddd;margin:20px 0;"></div>
+
+                      <p style="font-size:12px;color:#999;margin-top:15px;">
+                        © 901 Realty. All rights reserved.
+                      </p>
+
+                    </div>
+
+                  </div>
+                </body>
+              </html>
+            `,
             },
           ],
           groups: [process.env.MAILERLITE_GROUP_ID],
@@ -232,12 +141,15 @@ export async function POST(request: Request) {
     );
     const res = await campaign.json();
     await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res.id}/actions/send`,
+      `https://connect.mailerlite.com/api/campaigns/${res.id}/schedule`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
         },
+        body: JSON.stringify({
+          delivery: "instant",
+        }),
       },
     );
     console.log("MailerLite Campaign Created:", res);
