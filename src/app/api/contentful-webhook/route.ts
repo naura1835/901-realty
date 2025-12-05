@@ -9,7 +9,8 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields?.featuredImage?.["en-US"].url || "";
+    const featuredImage =
+      body.fields?.featuredImage?.["en-US"].fields.url || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -18,9 +19,6 @@ export async function POST(request: Request) {
     if (signature !== process.env.CONTENTFUL_WEBHOOK_SECRET) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    // Log or process the published entry
-    console.log("SmartHomeInnovation published:", body);
 
     const campaign = await fetch(
       "https://connect.mailerlite.com/api/campaigns",
@@ -63,7 +61,7 @@ export async function POST(request: Request) {
                       <div style="overflow:hidden;margin-bottom:30px;">
 
                         <div style="width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
-                          <img src="${featuredImage}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
+                          <img src="https://${featuredImage || "testing.png"}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
                         </div>
 
                         <div style="padding:25px;">
