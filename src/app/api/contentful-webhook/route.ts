@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const title = body.fields?.name?.["en-US"] || "New Smart Home Release";
     const slug = body.fields?.slug?.["en-US"] || "";
-    const description =
-      body.fields?.description?.["en-US"] ||
-      "A new smart home innovation has been published";
+    const description = body.fields?.description?.["en-US"]
+      ? documentToReactComponents(body.fields?.description?.["en-US"])
+      : "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
     const featuredImage = body.fields.featuredImage?.["en-US"] || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
@@ -45,9 +46,12 @@ export async function POST(request: Request) {
                   <meta charset="UTF-8" />
                   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                   <title>New Product Launch</title>
+                  <link rel="preconnect" href="https://fonts.googleapis.com">
+                  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
                 </head>
 
-                <body style="margin:0;padding:20px;background-color:#f5f5f5;font-family:Arial, sans-serif;">
+                <body style="margin:0;padding:20px;background-color:#f5f5f5;font-family:"Montserrat", sans-serif;font-weight:500">
                   <div style="max-width:600px;margin:0 auto;background-color:#ffffff;">
 
                     <!-- Header -->
@@ -158,7 +162,7 @@ export async function POST(request: Request) {
     }
 
     await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res.data.id}/schedule`,
+      `https://connect.mailerlite.com/api/campaigns/${res.data.id}/actions/send`,
       {
         method: "POST",
         headers: {
