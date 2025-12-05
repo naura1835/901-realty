@@ -199,7 +199,7 @@ export default function Home() {
         </div>
 
         <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
-          <div className="my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-10 md:max-w-[400px]">
+          <div className="my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-2 md:max-w-[400px]">
             <Image
               src={"/construction-img.jpeg"}
               alt="construction"

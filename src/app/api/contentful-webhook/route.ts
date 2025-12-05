@@ -14,10 +14,10 @@ export async function POST(request: Request) {
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
     // Optional: verify signature
-    // const signature = request.headers.get("x-webhook-signature");
-    // if (signature !== process.env.CONTENTFUL_WEBHOOK_SECRET) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
+    const signature = request.headers.get("x-webhook-signature");
+    if (signature !== process.env.CONTENTFUL_WEBHOOK_SECRET) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     // Log or process the published entry
     console.log("SmartHomeInnovation published:", body);
