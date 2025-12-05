@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields?.featuredImage?.["en-US"] || "";
+    const featuredImage = body.fields?.featuredImage?.["en-US"].url || "";
     const entryUrl = `${process.env.SITE_URL}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -160,7 +160,7 @@ export async function POST(request: Request) {
     }
 
     const sendRes = await fetch(
-      `https://connect.mailerlite.com/api/campaigns/${res?.data?.data?.id}/actions/send`,
+      `https://connect.mailerlite.com/api/campaigns/${res?.data?.data?.id}/schedule`,
       {
         method: "POST",
         headers: {
