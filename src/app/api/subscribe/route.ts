@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import mailchimp from "@mailchimp/mailchimp_marketing";
 
 mailchimp.setConfig({
-  apiKey: process.env.MAILCHIMP_API_KEY || "",
-  server: process.env.MAILCHIMP_SERVER_PREFIX || "",
+  apiKey: process.env.MAILCHIMP_API_KEY!,
+  server: process.env.MAILCHIMP_SERVER_PREFIX!,
 });
 
 export async function POST(request: Request) {
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     }
 
     const res = await mailchimp.lists.addListMember(
-      process.env.MAILCHIMP_AUDIENCE_ID || "",
+      process.env.MAILCHIMP_AUDIENCE_ID!,
       { email_address: email, status: "subscribed" },
     );
 
@@ -33,8 +33,17 @@ export async function POST(request: Request) {
       { message: "Subscribed successfully!" },
       { status: 200 },
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    const errorMessage =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error as any)?.response?.body?.title ||
+      (error instanceof Error ? error.message : "Server error");
+
+    return NextResponse.json(
+      {
+        message: errorMessage,
+      },
+      { status: 500 },
+    );
   }
 }
