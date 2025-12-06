@@ -96,13 +96,15 @@ export default function Home() {
                 >
                   <Card className="rounded-[0.75rem] py-0">
                     <CardContent className="relative p-0">
-                      <Image
-                        src={item.imgUrl}
-                        alt="construction"
-                        height={3000}
-                        width={3000}
-                        className="object-fit h-[468px] w-full rounded-[0.75rem]"
-                      />
+                      <div className="h-[468px] w-full transform rounded-[0.75rem] hover:*:scale-125">
+                        <Image
+                          src={item.imgUrl}
+                          alt="construction"
+                          height={3000}
+                          width={3000}
+                          className="object-fit h-full w-full rounded-[0.75rem]"
+                        />
+                      </div>
                       <div className="absolute inset-0 rounded-[0.75rem] bg-black/40"></div>
                       <Item className="absolute bottom-8 left-0">
                         <ItemContent>
