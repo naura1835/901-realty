@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const imageId = body.fields?.featuredImage?.fields.file.url["en-US"] || "";
+    const imageId = body.fields?.featuredImage?.["en-US"]?.sys.id || "";
     const featuredImage = imageId ? `${process.env.LOGO_URL!}/${imageId}` : "";
     const entryUrl = `${process.env.SITE_URL!}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL!}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
