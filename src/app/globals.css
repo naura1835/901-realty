@@ -128,3 +128,15 @@
   visibility: hidden;
   opacity: 0;
 }
+
+.img-wrapper {
+  overflow: hidden;
+}
+.img-wrapper > img {
+  transition: all 0.4s linear;
+  will-change: transform;
+}
+
+.img-wrapper:hover > img {
+  transform: scale(1.05);
+}

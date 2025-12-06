@@ -96,7 +96,7 @@ export default function Home() {
                 >
                   <Card className="rounded-[0.75rem] py-0">
                     <CardContent className="relative p-0">
-                      <div className="h-[468px] w-full transform rounded-[0.75rem] hover:*:scale-125">
+                      <div className="h-[468px] w-full rounded-[0.75rem]">
                         <Image
                           src={item.imgUrl}
                           alt="construction"
@@ -136,10 +136,10 @@ export default function Home() {
         className="relative bg-[#212529] py-14 text-white after:absolute after:bottom-0 after:left-1/2 after:h-16 after:w-px after:bg-white/50 after:content-[''] md:after:left-[45%] lg:pt-20"
       >
         <div className="relative grid grid-cols-1 px-5 pb-4 before:absolute before:bottom-0 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] md:grid-cols-2 md:after:absolute md:after:-top-14 md:after:left-[52%] md:after:h-[calc(100%+56px)] md:after:w-px md:after:bg-white/50 md:after:content-[''] lg:px-14 lg:after:-top-20 lg:after:h-[calc(100%+80px)]">
-          <h3 className="w-[14ch] text-xl font-medium text-white uppercase md:absolute md:left-[40%] md:text-2xl lg:text-4xl">
+          <h3 className="z-1 w-[14ch] text-xl font-medium text-white uppercase md:absolute md:left-[40%] md:text-2xl lg:text-4xl">
             Smart housing solutions
           </h3>
-          <div className="mx-auto mt-4 mb-8 h-[480px] w-full max-w-[386px]">
+          <div className="img-wrapper mx-auto mt-4 mb-8 h-[480px] w-full max-w-[386px]">
             <Image
               src={"/smart-lock.jpg"}
               alt="construction"
@@ -201,7 +201,7 @@ export default function Home() {
         </div>
 
         <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
-          <div className="my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-2 md:max-w-[400px]">
+          <div className="img-wrapper my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-2 md:max-w-[400px]">
             <Image
               src={"/construction-img.jpeg"}
               alt="construction"
@@ -210,7 +210,7 @@ export default function Home() {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="my-12 h-48 w-full max-w-[90%] justify-self-end sm:h-[250px] md:justify-self-center">
+          <div className="img-wrapper my-12 h-48 w-full max-w-[90%] justify-self-end sm:h-[250px] md:justify-self-center">
             <Image
               src={"/rooftop-in-progress-0001.png"}
               alt="construction"
@@ -229,7 +229,7 @@ export default function Home() {
           </p>
         </div>
         <div className="relative grid grid-cols-1 px-5 pt-10 pb-14 before:absolute before:bottom-2 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] md:grid-cols-2 md:after:absolute md:after:top-12 md:after:left-1/6 md:after:h-[calc(100%-56px)] md:after:w-px md:after:bg-white/50 md:after:content-[''] lg:px-14">
-          <div className="my-12 h-48 w-full max-w-[500px] justify-self-end md:col-start-1 md:row-start-1">
+          <div className="img-wrapper my-12 h-48 w-full max-w-[500px] justify-self-end md:col-start-1 md:row-start-1">
             <Image
               src={"/construction-01.jpeg"}
               alt="construction"
@@ -254,7 +254,7 @@ export default function Home() {
         aria-labelledby="start-project"
         className="grid grid-cols-1 gap-5 p-5 sm:p-10 md:grid-cols-2 lg:p-14"
       >
-        <div className="h-[350px] w-full max-w-[300px] justify-self-end md:h-[500px] md:max-w-[400px] md:justify-self-center">
+        <div className="img-wrapper h-[350px] w-full max-w-[300px] justify-self-end md:h-[500px] md:max-w-[400px] md:justify-self-center">
           <Image
             src={"/Image-2025-11-26.jpeg"}
             alt="construction"
