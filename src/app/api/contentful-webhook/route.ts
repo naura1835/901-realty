@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       body.fields?.shortDescription?.["en-US"] ||
       "A new smart home innovation has been published";
     const availability = body.fields?.availability?.["en-US"] || "";
-    const featuredImage = body.fields?.featuredImage?.["en-US"].url || "";
+    const featuredImage = body.fields?.featuredImage?.["en-US"].sys.id || "";
     const entryUrl = `${process.env.SITE_URL!}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL!}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
 
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
                           <span style="display:inline-block;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;background-color:#ffffff;border:1px solid #252422;color:#252422;text-transform:capitalize;">
                             ${availability} ${featuredImage} 
                           </span>
-                            ${body.fields?.featuredImage?.["en-US"].sys.id}
+                            ${body.fields?.featuredImage?.["en-US"].url}
                           <h2 style="font-size:24px;font-weight:bold;color:#333;margin-bottom:10px;">
                             ${title}
                           </h2>
