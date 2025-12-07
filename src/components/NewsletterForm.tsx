@@ -43,7 +43,10 @@ const NewsletterForm = () => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="md:row-start-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="newsletter md:row-start-2"
+      >
         <FieldSet>
           <FieldGroup className="gap-2 lg:flex-row">
             <FormInput

@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import WorkSkeleton from "@/components/WorkSkeleton";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -53,7 +54,7 @@ const Works = () => {
       {loading ? (
         <></>
       ) : (
-        <>
+        <Suspense fallback={<WorkSkeleton />}>
           <Carousel className="w-full md:hidden">
             <CarouselContent className="max-h-[500px]">
               {data?.projectCollection?.items?.map((project, index) => (
@@ -90,7 +91,10 @@ const Works = () => {
                   key={index}
                   className="image-div w-[500px] shrink-0 first:size-[250px] odd:h-[80%] odd:self-start even:h-[80%] even:self-end"
                 >
-                  <Link href={`/works/${project?.slug}`}>
+                  <Link
+                    href={`/works/${project?.slug}`}
+                    className="img-wrapper"
+                  >
                     <Image
                       src={project?.featuredImage?.url}
                       alt={
@@ -109,7 +113,7 @@ const Works = () => {
             title="Works"
             className="bottom-10 left-5 sm:left-10 lg:left-14"
           />
-        </>
+        </Suspense>
       )}
     </section>
   );

@@ -55,7 +55,7 @@ const ContactForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full md:row-span-2 md:max-w-[490px] md:self-center md:justify-self-end"
+        className="contact-form w-full md:row-span-2 md:max-w-[490px] md:self-center md:justify-self-end"
       >
         <FieldSet>
           <FieldGroup className="gap-4">

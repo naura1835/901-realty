@@ -1,4 +1,12 @@
+"use client";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useRef, useState } from "react";
+
+gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP);
 
 const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
@@ -8,21 +16,60 @@ const menuItems = [
 ];
 
 const Footer = () => {
+  const footerRef = useRef<HTMLElement>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  useGSAP(
+    () => {
+      const footerEl = footerRef.current;
+      if (!footerEl) return;
+
+      const split = SplitText.create(".footer-split-text", {
+        type: "chars",
+      });
+
+      gsap.from(split.chars, {
+        y: 20,
+        autoAlpha: 0,
+        stagger: {
+          each: 0.04,
+        },
+        scrollTrigger: {
+          trigger: footerEl,
+          start: "top center+=250",
+          toggleActions: "play none reverse restart",
+        },
+      });
+    },
+    { scope: footerRef },
+  );
   return (
-    <footer className="flex flex-col bg-[#F4F3EE] px-5 pt-[100px] pb-10 lg:px-14">
+    <footer
+      ref={footerRef}
+      className="flex flex-col bg-[#F4F3EE] px-5 pt-[100px] pb-10 lg:px-14"
+    >
       <div className="flex flex-col justify-between gap-5 md:flex-row">
-        <p className="text-4xl font-semibold uppercase md:w-[12ch]">
-          Let&apos;s build together
+        <p className="footer-split-text text-4xl font-semibold uppercase md:w-[12ch]">
+          Let&apos;s build <br /> together
         </p>
         <ul className="flex list-none flex-col gap-3 md:flex-row md:items-center md:gap-5">
           {menuItems.map((item) => (
-            <li key={item.id} className="text-sm font-medium uppercase">
+            <li
+              key={item.id}
+              className="text-sm font-medium uppercase"
+              onMouseEnter={() => setHovered(item.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
               <Link
                 href={item.url}
                 className={`inline-block text-xs font-semibold uppercase ${
                   item.style === "link-btn"
                     ? "bg-foreground rounded-md px-4 py-3 text-white"
                     : ""
+                } ${
+                  hovered !== null && hovered !== item.id && !item.style
+                    ? "opacity-30"
+                    : "opacity-100"
                 }`}
               >
                 {item.title}

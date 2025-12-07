@@ -6,8 +6,15 @@ import { useParams } from "next/navigation";
 import { Item, ItemDescription, ItemTitle } from "@/components/ui/item";
 import Footer from "@/components/shared/Footer";
 import VideoPlayer from "@/components/shared/VideoPlayer";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const WorkDetails = () => {
+  const containerRef = useRef(null);
   const params = useParams<{ slug: string }>();
   const { data } = useQuery(GET_PROJECT_BY_SLUG, {
     variables: {
@@ -17,8 +24,34 @@ const WorkDetails = () => {
   });
   const details: Project | undefined = data?.projectCollection.items[0];
 
+  useGSAP(
+    () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const imageDivs = gsap.utils.toArray(".image-div");
+
+      gsap.set(imageDivs, { y: 20, autoAlpha: 0 });
+
+      imageDivs.forEach((img) => {
+        const imgEl = img as HTMLElement;
+        gsap.to(imgEl, {
+          y: 0,
+          autoAlpha: 1,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: imgEl,
+            start: "top center",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+    },
+    { scope: containerRef, dependencies: [data] },
+  );
+
   return (
-    <div>
+    <div ref={containerRef}>
       {details !== undefined && (
         <>
           <div className="h-full min-h-screen space-y-[50px]">
@@ -95,7 +128,7 @@ const WorkDetails = () => {
                   alt={
                     img.description || img.title || `${details?.title}-${index}`
                   }
-                  className="h-[300px] object-cover md:h-[400px]"
+                  className="image-div h-[300px] object-cover md:h-[400px]"
                 />
               ))}
             </div>
