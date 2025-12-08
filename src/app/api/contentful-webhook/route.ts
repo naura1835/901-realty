@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const assetId = body.fields?.featuredImage?.["en-US"].sys.id;
     const entryUrl = `${process.env.SITE_URL!}/smart-housing/${slug}`;
     const logo = `${process.env.LOGO_URL!}/6pg8lZdUUlStkfYKa1mEHe/f5c7dbf09c064805872b773bed9e3705/Frame_63.png`;
-    const assetUrl = `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}/assets/${assetId}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`;
+    const assetUrl = `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID!}/environments/${process.env.CONTENTFUL_ENVIRONMENT!}/assets/${assetId}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN!}`;
 
     const assetResponse = await fetch(assetUrl);
 
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
                       <div style="overflow:hidden;margin-bottom:30px;">
 
                         <div style="width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
-                          <img src="${`https:${asset.fields.file["en-US"].url}`}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
+                          <img src="${`https:${asset.fields.file.url}`}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
                         </div>
 
                         <div style="padding:25px;">
