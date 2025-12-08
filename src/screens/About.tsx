@@ -24,7 +24,6 @@ const About = () => {
           start: "top 80%",
           end: "bottom 40%",
           scrub: false,
-          markers: true,
         },
       });
 
