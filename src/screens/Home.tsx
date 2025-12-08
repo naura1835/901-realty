@@ -65,6 +65,7 @@ const Home = () => {
       if (!container) return;
       const textElements = gsap.utils.toArray(".split");
       const imgElements = gsap.utils.toArray(".img-wrapper");
+      const serviceInfos = gsap.utils.toArray(".service-info");
 
       textElements.forEach((el) => {
         const splitEl = el as HTMLElement;
@@ -81,6 +82,20 @@ const Home = () => {
             start: "top center+=250",
             end: "bottom center",
             toggleActions: "restart none reverse pause",
+          },
+        });
+      });
+
+      serviceInfos.forEach((el) => {
+        const info = el as HTMLElement;
+        gsap.from(info, {
+          y: 20,
+          autoAlpha: 0,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: info,
+            start: "top bottom",
+            end: "bottom top",
           },
         });
       });
@@ -269,7 +284,7 @@ const Home = () => {
           <h3 className="split mt-14 mb-7 text-xl font-medium text-white uppercase md:row-start-1 md:self-center md:text-2xl lg:text-4xl">
             Construction
           </h3>
-          <p className="text-sm text-white md:ml-18 md:place-self-center md:text-xl">
+          <p className="service-info text-sm text-white md:ml-18 md:place-self-center md:text-xl">
             From design to delivery, we build durable, high-quality structures
             on time and within budget. Whether residential, commercial, or
             corporate, every project is handled with precision and safety.
@@ -288,7 +303,7 @@ const Home = () => {
           <h3 className="split mb-7 justify-self-end text-xl font-medium text-white uppercase md:row-start-1 md:self-end md:text-2xl lg:text-4xl">
             Consulting Services
           </h3>
-          <p className="text-sm text-white md:col-start-2 md:place-self-center md:text-xl">
+          <p className="service-info text-sm text-white md:col-start-2 md:place-self-center md:text-xl">
             Provide strategic guidance and expert insight to elevate your
             project from vision to reality. With refined analysis, precise
             planning, and industry expertise, we help you make confident,

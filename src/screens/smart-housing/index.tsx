@@ -92,7 +92,7 @@ const SmartHousing = () => {
   if (loading) return <></>;
 
   return (
-    <div ref={smarthomeRef} className="space-y-8">
+    <div ref={smarthomeRef} className="h-full min-h-screen space-y-8">
       <div className="relative h-dvh w-full">
         <Image
           src="/motion-sensor-light.jpg"
@@ -163,64 +163,67 @@ const SmartHousing = () => {
             className="h-full w-full object-cover object-[50%_65%]"
           />
         </div>
-        <div
-          aria-labelledby="smart-gadgets"
-          className="space-y-10 md:col-span-2 md:mt-10"
-        >
-          <h2
-            id="smart-gadgets"
-            className="text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
+        {(data?.smartHomeInnovationsCollection?.total || 0) > 0 && (
+          <div
+            aria-labelledby="smart-gadgets"
+            className="space-y-10 md:col-span-2 md:mt-10"
           >
-            Browse our collection
-          </h2>
-          <div className="grid gap-10 md:grid-cols-2">
-            {/* {Array.from({ length: 10 })
+            <h2
+              id="smart-gadgets"
+              className="text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
+            >
+              Browse our collection
+            </h2>
+            <div className="grid gap-10 md:grid-cols-2">
+              {/* {Array.from({ length: 10 })
                 .flatMap(
                   () => data?.smartHomeInnovationsCollection?.items || [],
                 ) */}
-            <Suspense fallback={<ProductSkeleton />}>
-              {data?.smartHomeInnovationsCollection?.items?.map(
-                (item, index) => (
-                  <Link
-                    key={`${item?.slug}-${index}`}
-                    href={`/smart-housing/${item?.slug}`}
-                    className="product w-full max-w-[90%] odd:justify-self-start even:justify-self-end" /**md:nth-[3n]:self-center md:nth-[3n]:justify-self-end md:[&:nth-child(4n)>div>div]:h-[450px] */
-                  >
-                    <div className="flex flex-col gap-2">
-                      <p className="text-sm font-semibold uppercase">
-                        {item?.name || ""}
-                      </p>
-                      <div className="img-wrapper h-[350px] w-full">
-                        <Image
-                          src={item?.featuredImage?.url}
-                          alt={item?.featuredImage?.description || item?.name}
-                          height={3000}
-                          width={3000}
-                          className="h-full w-full object-cover"
-                        />
+              <Suspense fallback={<ProductSkeleton />}>
+                {data?.smartHomeInnovationsCollection?.items?.map(
+                  (item, index) => (
+                    <Link
+                      key={`${item?.slug}-${index}`}
+                      href={`/smart-housing/${item?.slug}`}
+                      className="product w-full max-w-[90%] odd:justify-self-start even:justify-self-end" /**md:nth-[3n]:self-center md:nth-[3n]:justify-self-end md:[&:nth-child(4n)>div>div]:h-[450px] */
+                    >
+                      <div className="flex flex-col gap-2">
+                        <p className="text-sm font-semibold uppercase">
+                          {item?.name || ""}
+                        </p>
+                        <div className="img-wrapper h-[350px] w-full">
+                          <Image
+                            src={item?.featuredImage?.url}
+                            alt={item?.featuredImage?.description || item?.name}
+                            height={3000}
+                            width={3000}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ),
+                    </Link>
+                  ),
+                )}
+              </Suspense>
+              {(data?.smartHomeInnovationsCollection?.total || 0) > 10 && (
+                <Button
+                  size="lg"
+                  className="w-full max-w-56 justify-self-center md:col-span-2"
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        skip: data?.smartHomeInnovationsCollection?.items
+                          ?.length,
+                      },
+                    })
+                  }
+                >
+                  View More
+                </Button>
               )}
-            </Suspense>
-            {(data?.smartHomeInnovationsCollection?.total || 0) > 10 && (
-              <Button
-                size="lg"
-                className="w-full max-w-56 justify-self-center md:col-span-2"
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      skip: data?.smartHomeInnovationsCollection?.items?.length,
-                    },
-                  })
-                }
-              >
-                View More
-              </Button>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </section>
       <Footer />
     </div>

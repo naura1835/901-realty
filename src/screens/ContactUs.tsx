@@ -27,11 +27,12 @@ const ContactUs = () => {
         y: 30,
         autoAlpha: 0,
       });
+      const tl = gsap.timeline();
 
       SplitText.create(".split", {
         type: "chars",
         onSplit: (self) => {
-          gsap.from(self.chars, {
+          tl.from(self.chars, {
             y: 20,
             autoAlpha: 0,
             stagger: {
@@ -49,24 +50,32 @@ const ContactUs = () => {
       animateText.forEach((txt) => {
         const textEl = txt as HTMLElement;
 
-        gsap.to(textEl, {
-          autoAlpha: 1,
-          y: 0,
-          scrollTrigger: textEl,
-        });
+        tl.to(
+          textEl,
+          {
+            autoAlpha: 1,
+            y: 0,
+            scrollTrigger: textEl,
+          },
+          "start+1",
+        );
       });
       [".newsletter", ".contact-form"].forEach((selector) => {
-        gsap.to(selector, {
-          y: 0,
-          autoAlpha: 1,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: selector,
-            start: "top 85%",
-            end: "top 40%",
-            invalidateOnRefresh: true,
+        tl.to(
+          selector,
+          {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: selector,
+              start: "top 85%",
+              end: "top 40%",
+              invalidateOnRefresh: true,
+            },
           },
-        });
+          "start+1",
+        );
       });
     },
     { scope: contactRef },

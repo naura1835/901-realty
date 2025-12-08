@@ -5,6 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
+import Instagram from "@/icons/instagram";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP);
 
@@ -81,7 +82,12 @@ const Footer = () => {
       <div className="@container">
         <ul className="flex list-none flex-col items-center gap-3 pt-14 sm:justify-center md:gap-8 @sm:flex-row">
           <li className="text-center text-xs font-semibold uppercase">
-            instagram
+            <a
+              href="https://www.instagram.com/901.realty/"
+              className="text-foreground no-underline"
+            >
+              <Instagram className="fill-foreground size-5" />
+            </a>
           </li>
           <li className="text-center text-xs font-semibold uppercase">
             privacy policy
