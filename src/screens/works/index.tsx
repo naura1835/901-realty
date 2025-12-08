@@ -80,12 +80,9 @@ const Works = () => {
           </Carousel>
           <div
             ref={containerRef}
-            className="hidden h-full md:block md:overflow-x-hidden"
+            className="hidden h-full md:block md:overflow-hidden"
           >
             <div className={`flex h-full min-w-max gap-20`}>
-              {/* {Array.from({ length: 10 })
-                .flatMap(() => data?.projectCollection?.items || [])
-                 */}
               {data?.projectCollection?.items?.map((project, index) => (
                 <div
                   key={index}

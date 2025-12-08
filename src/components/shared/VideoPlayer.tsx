@@ -14,11 +14,9 @@ const VideoPlayer = ({
   showVolumeBtn?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
   const soundRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [volumeOn, setVolumeOn] = useState(false);
-  const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
     const videoEl = videoRef.current;
@@ -27,7 +25,9 @@ const VideoPlayer = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          videoEl.play();
+          if (autoPlay) {
+            videoEl.play();
+          }
         } else {
           videoEl.pause();
         }
@@ -40,6 +40,7 @@ const VideoPlayer = ({
     return () => {
       observer.unobserve(videoEl);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const togglePlayback = () => {
@@ -63,46 +64,8 @@ const VideoPlayer = ({
     setVolumeOn(newVolumeState);
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const soundEl = soundRef.current;
-
-    if (soundEl) {
-      const rect = soundEl.getBoundingClientRect();
-      const padding = 20;
-      const isNear =
-        e.clientX >= rect.left - padding &&
-        e.clientX <= rect.right + padding &&
-        e.clientY >= rect.top - padding &&
-        e.clientY <= rect.bottom + padding;
-
-      if (isNear) {
-        hideCursor();
-        return;
-      }
-    }
-
-    setShowCursor(true);
-    if (cursorRef.current) {
-      cursorRef.current.style.left = `${e.clientX}px`;
-      cursorRef.current.style.top = `${e.clientY}px`;
-    }
-  };
-
-  const hideCursor = () => {
-    setShowCursor(false);
-  };
-
-  const showCursorfunc = () => {
-    setShowCursor(true);
-  };
-
   return (
-    <div
-      onMouseMove={handleMouseMove}
-      onClick={togglePlayback}
-      onMouseLeave={hideCursor}
-      className={`relative size-full overflow-hidden`}
-    >
+    <div className={`relative size-full overflow-hidden`}>
       <video
         ref={videoRef}
         src={videoUrl}
@@ -112,17 +75,9 @@ const VideoPlayer = ({
         className="size-full object-cover md:cursor-none"
       />
 
-      {showCursor && (
-        <div
-          ref={cursorRef}
-          className="pointer-events-none absolute z-50 hidden size-fit translate-0 transform items-center justify-center rounded-full bg-white/10 px-3 py-2 text-xs font-medium text-white md:flex"
-        >
-          {isPlaying ? "PAUSE" : "PLAY"}
-        </div>
-      )}
       <Button
         size="icon"
-        className="absolute bottom-4 left-4 flex size-10 items-center justify-center rounded-full bg-white/10 px-3 py-2 text-xs text-white transition-all hover:bg-white/20 md:hidden"
+        className="absolute bottom-4 left-4 flex size-10 items-center justify-center rounded-full bg-white/10 px-3 py-2 text-xs text-white transition-all hover:bg-white/20"
         onClick={(e) => {
           e.stopPropagation();
           togglePlayback();
@@ -133,8 +88,6 @@ const VideoPlayer = ({
       {showVolumeBtn && (
         <div
           ref={soundRef}
-          onMouseEnter={hideCursor}
-          onMouseLeave={showCursorfunc}
           className="absolute right-4 bottom-4 flex items-center gap-3 text-xs text-white uppercase"
         >
           SOUND:

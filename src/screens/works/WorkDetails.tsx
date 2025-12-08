@@ -29,26 +29,46 @@ const WorkDetails = () => {
       const container = containerRef.current;
       if (!container) return;
       const imageDivs = gsap.utils.toArray(".image-div");
+      const mm = gsap.matchMedia();
 
       gsap.set(imageDivs, { y: 20, autoAlpha: 0 });
-
-      imageDivs.forEach((img) => {
-        const imgEl = img as HTMLElement;
-        gsap.to(imgEl, {
-          y: 0,
-          autoAlpha: 1,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: imgEl,
-            start: "top center",
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
+      mm.add("(min-width: 768px)", () => {
+        imageDivs.forEach((img) => {
+          const imgEl = img as HTMLElement;
+          gsap.to(imgEl, {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: imgEl,
+              start: "top center+=250",
+              invalidateOnRefresh: true,
+              markers: true,
+            },
+          });
+        });
+      });
+      mm.add("(max-width: 767px)", () => {
+        imageDivs.forEach((img) => {
+          const imgEl = img as HTMLElement;
+          gsap.to(imgEl, {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: imgEl,
+              start: "top center",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
         });
       });
     },
     { scope: containerRef, dependencies: [data] },
   );
+
+  console.log(data?.projectCollection.items[0]);
 
   return (
     <div ref={containerRef}>
@@ -119,18 +139,32 @@ const WorkDetails = () => {
                   </Item>
                 </div>
               </div>
-              {details?.projectImagesCollection?.items?.map((img, index) => (
-                <Image
-                  key={index}
-                  src={img.url}
-                  height={3000}
-                  width={3000}
-                  alt={
-                    img.description || img.title || `${details?.title}-${index}`
-                  }
-                  className="image-div h-[300px] object-cover md:h-[400px]"
-                />
-              ))}
+              {details?.projectImagesCollection?.items?.map((img, index) => {
+                if (img.url.includes("videos.ctfassets")) {
+                  return (
+                    <div
+                      key={index}
+                      className="image-div h-[300px] object-cover md:h-[400px]"
+                    >
+                      <VideoPlayer videoUrl={img.url} />
+                    </div>
+                  );
+                }
+                return (
+                  <Image
+                    key={index}
+                    src={img.url}
+                    height={3000}
+                    width={3000}
+                    alt={
+                      img.description ||
+                      img.title ||
+                      `${details?.title}-${index}`
+                    }
+                    className="image-div h-[300px] object-cover md:h-[400px]"
+                  />
+                );
+              })}
             </div>
           </div>
           <Footer />
