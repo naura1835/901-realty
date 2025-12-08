@@ -82,7 +82,7 @@ export async function POST(request: Request) {
                       <div style="overflow:hidden;margin-bottom:30px;">
 
                         <div style="width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
-                          <img src="${`https:${asset.fields.file.url}`}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
+                          <img src="${`https:${asset.fields.file["en-US"].url}`}" alt="${title}" style="width:100%;height:100%;object-fit:cover;" />
                         </div>
 
                         <div style="padding:25px;">
