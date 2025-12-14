@@ -57,7 +57,6 @@ const WorkDetails = () => {
             scrollTrigger: {
               trigger: imgEl,
               start: "top center+=250",
-              scrub: true,
               invalidateOnRefresh: true,
             },
           });

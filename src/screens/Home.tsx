@@ -262,7 +262,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
+        <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[75%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
           <div className="img-wrapper my-4 h-[400px] w-full max-w-[300px] md:relative md:top-20 md:z-2 md:max-w-[400px]">
             <Image
               src={"/IMG_20251208_184633_444.jpg"}
@@ -299,7 +299,7 @@ const Home = () => {
             </span>
           </p>
         </div>
-        <div className="relative flex flex-col justify-end px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:right-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:flex-row md:gap-8 md:after:top-12 md:after:right-1/4 md:after:h-[calc(100%)] md:after:w-px lg:px-14">
+        <div className="relative flex flex-col justify-end px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[67%] after:right-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:flex-row md:gap-8 md:after:top-12 md:after:right-1/4 md:after:h-[calc(100%)] md:after:w-px lg:px-14">
           <div className="img-wrapper z-3 my-12 h-[300px] w-full max-w-[300px] md:h-[400px] md:max-w-[400px]">
             <Image
               src={"/901-realty-block.jpeg"}
