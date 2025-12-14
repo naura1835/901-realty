@@ -58,7 +58,7 @@ const Works = () => {
           <Carousel className="w-full md:hidden">
             <CarouselContent className="max-h-[500px]">
               {data?.projectCollection?.items?.map((project, index) => (
-                <CarouselItem key={index} className="h-full w-full">
+                <CarouselItem key={index} className="w-full">
                   <Link href={`/works/${project?.slug}`}>
                     <Image
                       src={project?.featuredImage?.url}
@@ -67,7 +67,7 @@ const Works = () => {
                       }
                       width={3000}
                       height={3000}
-                      className="h-full w-full object-cover"
+                      className="h-full max-h-[500px] w-full object-cover object-center"
                     />
                   </Link>
                 </CarouselItem>

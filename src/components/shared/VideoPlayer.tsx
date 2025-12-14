@@ -72,7 +72,7 @@ const VideoPlayer = ({
         autoPlay={autoPlay}
         muted
         playsInline
-        className="size-full object-cover md:cursor-none"
+        className="size-full object-cover"
       />
 
       <Button

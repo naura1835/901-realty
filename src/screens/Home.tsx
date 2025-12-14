@@ -263,7 +263,7 @@ const Home = () => {
         </div>
 
         <div className="relative grid grid-cols-1 px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:left-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:grid-cols-2 md:after:top-0 md:after:left-[52%] md:after:h-[calc(100%+46px)] md:after:w-px lg:px-14">
-          <div className="img-wrapper my-4 h-[400px] w-full max-w-[300px] md:relative md:-left-[5%] md:z-2 md:max-w-[400px]">
+          <div className="img-wrapper my-4 h-[400px] w-full max-w-[300px] md:relative md:top-20 md:z-2 md:max-w-[400px]">
             <Image
               src={"/IMG_20251208_184633_444.jpg"}
               alt="construction"
@@ -272,38 +272,71 @@ const Home = () => {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="img-wrapper my-12 h-48 w-full max-w-[90%] justify-self-end sm:h-[250px] md:justify-self-center">
+          <div className="img-wrapper z-3 my-12 h-[400px] w-full max-w-[300px] justify-self-end md:relative md:-top-10 md:left-10 md:max-w-[400px] md:justify-self-center">
             <Image
-              src={"/rooftop-in-progress-0001.png"}
-              alt="construction"
-              height={3000}
-              width={3000}
-              className="h-full w-full object-cover object-bottom"
-            />
-          </div>
-          <h3 className="split mt-14 mb-7 text-xl font-medium text-white uppercase md:row-start-1 md:self-center md:text-2xl lg:text-4xl">
-            Construction
-          </h3>
-          <p className="service-info text-sm text-white md:ml-18 md:place-self-center md:text-xl">
-            From design to delivery, we build durable, high-quality structures
-            on time and within budget. Whether residential, commercial, or
-            corporate, every project is handled with precision and safety.
-          </p>
-        </div>
-        <div className="relative grid grid-cols-1 px-5 pt-10 pb-14 before:absolute before:bottom-2 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] md:grid-cols-2 md:after:absolute md:after:top-12 md:after:left-1/6 md:after:h-[calc(100%-56px)] md:after:w-px md:after:bg-white/50 md:after:content-[''] lg:px-14">
-          <div className="img-wrapper my-12 h-48 w-full max-w-[500px] justify-self-end md:col-start-1 md:row-start-1">
-            <Image
-              src={"/construction-01.jpeg"}
+              src={"/IMG_20251208_184636_615.jpg"}
               alt="construction"
               height={3000}
               width={3000}
               className="h-full w-full object-cover object-top"
             />
           </div>
-          <h3 className="split mb-7 justify-self-end text-xl font-medium text-white uppercase md:row-start-1 md:self-end md:text-2xl lg:text-4xl">
+          <h3 className="split mt-14 mb-7 text-xl font-medium text-white uppercase md:relative md:left-[68px] md:col-start-2 md:row-start-1 md:self-end md:justify-self-start md:text-2xl lg:text-4xl">
+            Construction
+          </h3>
+          <p className="service-info space-y-8 text-sm text-white md:ml-18 md:self-start md:text-xl">
+            <span className="block">
+              From design to delivery, we build durable, high-quality structures
+              on time and within budget. Whether residential, commercial, or
+              corporate, every project is handled with precision and safety.
+            </span>
+            <span className="block">
+              We also deliver high-quality renovations that refresh and enhance
+              existing spaces. From targeted upgrades to full transformations,
+              we focus on improving functionality, aesthetics, and long-term
+              value while maintaining the same standards of precision, safety,
+              and timely delivery.
+            </span>
+          </p>
+        </div>
+        <div className="relative flex flex-col justify-end px-5 pt-10 before:absolute before:-bottom-12 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] after:absolute after:top-[81%] after:right-0 after:h-px after:w-full after:bg-white/50 after:content-[''] md:flex-row md:gap-8 md:after:top-12 md:after:right-1/4 md:after:h-[calc(100%)] md:after:w-px lg:px-14">
+          <div className="img-wrapper z-3 my-12 h-[300px] w-full max-w-[300px] md:h-[400px] md:max-w-[400px]">
+            <Image
+              src={"/901-realty-block.jpeg"}
+              alt="blocks-stacked"
+              height={3000}
+              width={3000}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="mt-12 max-w-[600px] space-y-4 self-center">
+            <h3 className="split text-xl font-medium text-white uppercase md:text-2xl lg:text-4xl">
+              901 realty blocks
+            </h3>
+            <p className="service-info text-sm text-white md:col-start-2 md:place-self-center md:text-xl">
+              901 Realty Blocks is the manufacturing arm of 901 Realty,
+              dedicated to producing durable, high-quality concrete blocks for
+              residential, commercial, and large-scale construction projects.
+              Built with precision and strict quality control, our blocks are
+              designed to meet industry standards for strength, consistency, and
+              long-term performance.
+            </p>
+          </div>
+        </div>
+        <div className="relative grid grid-cols-1 px-5 pt-10 pb-14 before:absolute before:bottom-2 before:left-0 before:h-px before:w-full before:bg-white/50 before:content-[''] md:grid-cols-2 md:gap-x-8 md:after:absolute md:after:top-12 md:after:left-1/6 md:after:h-[calc(100%-56px)] md:after:w-px md:after:bg-white/50 md:after:content-[''] lg:px-14">
+          <div className="img-wrapper z-2 my-12 h-48 w-full max-w-[500px] justify-self-end md:col-start-1 md:row-span-2 md:row-start-1 md:h-[400px]">
+            <Image
+              src={"/img-001.jpeg"}
+              alt="construction"
+              height={3000}
+              width={3000}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+          <h3 className="split mb-4 justify-self-end text-xl font-medium text-white uppercase md:row-start-1 md:self-end md:justify-self-start md:text-2xl lg:text-4xl">
             Consulting Services
           </h3>
-          <p className="service-info text-sm text-white md:col-start-2 md:place-self-center md:text-xl">
+          <p className="service-info text-sm text-white md:col-start-2 md:justify-self-start md:text-xl">
             Provide strategic guidance and expert insight to elevate your
             project from vision to reality. With refined analysis, precise
             planning, and industry expertise, we help you make confident,

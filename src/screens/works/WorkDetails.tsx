@@ -43,7 +43,6 @@ const WorkDetails = () => {
               trigger: imgEl,
               start: "top center+=250",
               invalidateOnRefresh: true,
-              markers: true,
             },
           });
         });
@@ -57,8 +56,8 @@ const WorkDetails = () => {
             ease: "power1.out",
             scrollTrigger: {
               trigger: imgEl,
-              start: "top center",
-              scrub: 1,
+              start: "top center+=250",
+              scrub: true,
               invalidateOnRefresh: true,
             },
           });
@@ -67,8 +66,6 @@ const WorkDetails = () => {
     },
     { scope: containerRef, dependencies: [data] },
   );
-
-  console.log(data?.projectCollection.items[0]);
 
   return (
     <div ref={containerRef}>
@@ -144,7 +141,7 @@ const WorkDetails = () => {
                   return (
                     <div
                       key={index}
-                      className="image-div h-[300px] object-cover md:h-[400px]"
+                      className="image-div h-[400px] lg:h-[500px]"
                     >
                       <VideoPlayer videoUrl={img.url} />
                     </div>
@@ -161,7 +158,7 @@ const WorkDetails = () => {
                       img.title ||
                       `${details?.title}-${index}`
                     }
-                    className="image-div h-[300px] object-cover md:h-[400px]"
+                    className="image-div h-[400px] object-cover lg:h-[500px]"
                   />
                 );
               })}
