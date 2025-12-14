@@ -25,6 +25,8 @@ const Works = () => {
 
   useGSAP(
     () => {
+      if (typeof window === "undefined") return;
+
       const container = containerRef.current;
       if (!container) return;
 
@@ -38,6 +40,7 @@ const Works = () => {
           pin: true,
           scrub: 1,
           start: "center center",
+          markers: true,
           end: () => `+=${containerRef.current?.scrollWidth} + 3000`,
           invalidateOnRefresh: true,
         },
