@@ -121,7 +121,7 @@ const Home = () => {
   return (
     <div ref={homeRef}>
       <div className="h-screen w-full">
-        <VideoPlayer videoUrl="/img_3120_v1.mp4" autoPlay showVolumeBtn />
+        <VideoPlayer videoUrl="/img_3120_v1-1.mp4" autoPlay showVolumeBtn />
       </div>
       <div className="mt-9 px-5 md:mt-16 lg:px-14">
         <h1 className="mx-auto mb-1 w-full max-w-[880px] text-center text-2xl leading-[130%] font-medium uppercase sm:text-4xl lg:text-5xl">

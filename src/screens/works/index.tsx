@@ -32,18 +32,20 @@ const Works = () => {
 
       const imageDivs = gsap.utils.toArray(".image-div");
 
+      const totalScroll = container.scrollWidth - window.innerWidth;
       gsap.to(imageDivs, {
-        x: () => -(container.scrollWidth - window.innerWidth),
+        x: () => -totalScroll,
         ease: "none",
         scrollTrigger: {
           trigger: container,
           pin: true,
           scrub: 1,
-          start: "center center",
-          end: () => `+=${containerRef.current?.scrollWidth} + 3000`,
+          start: "center center+=20",
+          end: () => `+=${totalScroll} + 3000`,
           invalidateOnRefresh: true,
         },
       });
+      ScrollTrigger.refresh();
     },
     { scope: containerRef, dependencies: [data] },
   );
@@ -51,7 +53,7 @@ const Works = () => {
   return (
     <section
       aria-labelledby="section-title"
-      className="relative mt-[100px] flex h-[calc(100dvh-250px)] flex-col justify-center gap-8 p-5 sm:p-10 md:gap-y-0 lg:px-14"
+      className="relative mt-[100px] flex flex-col justify-center gap-8 p-5 sm:p-10 md:justify-start md:gap-y-0 lg:px-14"
     >
       {loading ? (
         <></>
@@ -84,7 +86,7 @@ const Works = () => {
             ref={containerRef}
             className="hidden h-full md:block md:overflow-hidden"
           >
-            <div className={`flex h-full min-w-max gap-20`}>
+            <div className={`flex h-[calc(100dvh-250px)] min-w-max gap-20`}>
               {data?.projectCollection?.items?.map((project, index) => (
                 <div
                   key={index}
@@ -114,6 +116,7 @@ const Works = () => {
           />
         </Suspense>
       )}
+      <div className="h-[900px]"></div>
     </section>
   );
 };
