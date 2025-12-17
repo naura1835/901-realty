@@ -87,7 +87,7 @@ const Works = () => {
           <div ref={containerRef} className="hidden md:block">
             <div
               ref={scrollContainerRef}
-              className={`scroll-container flex h-[calc(100dvh-250px)] min-w-max gap-20`}
+              className={`scroll-container ml-10 flex h-[calc(100dvh-250px)] min-w-max gap-20 lg:ml-14`}
             >
               {data?.projectCollection?.items?.map((project, index) => (
                 <div
