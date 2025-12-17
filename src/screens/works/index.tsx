@@ -22,26 +22,28 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const Works = () => {
   const { data, loading } = useQuery(GET_PROJECTS);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       if (typeof window === "undefined") return;
 
       const container = containerRef.current;
-      if (!container) return;
+      const scrollContainer = scrollContainerRef.current;
+      if (!container || !scrollContainer) return;
 
       const imageDivs = gsap.utils.toArray(".image-div");
 
-      const totalScroll = container.scrollWidth - window.innerWidth;
-      gsap.to(imageDivs, {
-        x: () => -totalScroll,
+      const totalScroll = scrollContainer.scrollWidth - window.innerWidth;
+      gsap.to(scrollContainer, {
+        xPercent: -100 * (imageDivs.length - 1),
         ease: "none",
         scrollTrigger: {
           trigger: container,
           pin: true,
           scrub: 1,
           start: "center center+=20",
-          end: () => `+=${totalScroll} + 3000`,
+          end: () => `+=${totalScroll}`,
           invalidateOnRefresh: true,
         },
       });
@@ -60,7 +62,7 @@ const Works = () => {
       ) : (
         <Suspense fallback={<WorkSkeleton />}>
           <Carousel className="w-full md:hidden">
-            <CarouselContent className="max-h-[500px]">
+            <CarouselContent>
               {data?.projectCollection?.items?.map((project, index) => (
                 <CarouselItem key={index} className="w-full">
                   <Link href={`/works/${project?.slug}`}>
@@ -71,7 +73,7 @@ const Works = () => {
                       }
                       width={3000}
                       height={3000}
-                      className="h-full max-h-[500px] w-full object-cover object-center"
+                      className="h-full max-h-[60vh] w-full object-cover object-center"
                     />
                   </Link>
                 </CarouselItem>
@@ -82,11 +84,11 @@ const Works = () => {
               <CarouselNext className="relative" />
             </div>
           </Carousel>
-          <div
-            ref={containerRef}
-            className="hidden h-full md:block md:overflow-hidden"
-          >
-            <div className={`flex h-[calc(100dvh-250px)] min-w-max gap-20`}>
+          <div ref={containerRef} className="hidden md:block">
+            <div
+              ref={scrollContainerRef}
+              className={`scroll-container flex h-[calc(100dvh-250px)] min-w-max gap-20`}
+            >
               {data?.projectCollection?.items?.map((project, index) => (
                 <div
                   key={index}
@@ -110,13 +112,18 @@ const Works = () => {
               ))}
             </div>
           </div>
+          <div
+            className="scroll-height relative block w-full"
+            style={{
+              height: `${(data?.projectCollection?.items?.length || 5) * 10}vh`,
+            }}
+          ></div>
           <TitleSection
             title="Works"
             className="bottom-10 left-5 sm:left-10 lg:left-14"
           />
         </Suspense>
       )}
-      <div className="h-[900px]"></div>
     </section>
   );
 };
