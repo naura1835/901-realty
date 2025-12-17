@@ -27,8 +27,12 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { useQuery } from "@apollo/client/react";
+import { GET_BEHIND_THE_BUILD_ASSETS } from "@/lib/api/assets";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP);
+
 const chooseUsItems = [
   {
     imgUrl: "/hallway.jpg",
@@ -58,6 +62,19 @@ const chooseUsItems = [
 
 const Home = () => {
   const homeRef = useRef<HTMLDivElement>(null);
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const { data: behindTheBuild } = useQuery(GET_BEHIND_THE_BUILD_ASSETS, {
+    variables: {
+      titles: [
+        "completed toilet",
+        "Work in progress toilet build",
+        "Glass stair railing",
+        "decking",
+      ],
+      limit: 4,
+    },
+    fetchPolicy: "cache-first",
+  });
 
   useGSAP(
     () => {
@@ -344,6 +361,44 @@ const Home = () => {
             results.
           </p>
         </div>
+      </section>
+      <section
+        aria-labelledby="behind-the-build"
+        className="p-5 sm:p-10 sm:pb-5 lg:p-14 lg:pb-5"
+      >
+        <Carousel
+          plugins={[plugin.current]}
+          opts={{
+            loop: true,
+          }}
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
+          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[auto_2fr] md:gap-5">
+            <div className="flex h-full flex-col justify-end">
+              <h2
+                id="behind-the-build"
+                className="split w-[16ch] text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
+              >
+                Behind the build
+              </h2>
+              <div className="hidden justify-end gap-2 md:mt-[50%] md:flex">
+                <CarouselPrevious className="relative" />
+                <CarouselNext className="relative" />
+              </div>
+            </div>
+            <CarouselContent className="aspect-square md:aspect-video">
+              {behindTheBuild?.assetCollection.items.map((asset, index) => (
+                <CarouselItem
+                  key={`${asset.title}-${index}`}
+                  className="rounded-[0.75rem] **:rounded-[0.75rem]"
+                >
+                  <VideoPlayer videoUrl={asset.url} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </div>
+        </Carousel>
       </section>
       <section
         aria-labelledby="start-project"
