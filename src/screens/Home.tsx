@@ -63,18 +63,21 @@ const chooseUsItems = [
 const Home = () => {
   const homeRef = useRef<HTMLDivElement>(null);
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
-  const { data: behindTheBuild } = useQuery(GET_BEHIND_THE_BUILD_ASSETS, {
-    variables: {
-      titles: [
-        "completed toilet",
-        "Work in progress toilet build",
-        "Glass stair railing",
-        "decking",
-      ],
-      limit: 4,
+  const { data: behindTheBuild, loading } = useQuery(
+    GET_BEHIND_THE_BUILD_ASSETS,
+    {
+      variables: {
+        titles: [
+          "completed toilet",
+          "Work in progress toilet build",
+          "Glass stair railing",
+          "decking",
+        ],
+        limit: 4,
+      },
+      fetchPolicy: "cache-first",
     },
-    fetchPolicy: "cache-first",
-  });
+  );
 
   useGSAP(
     () => {
@@ -362,49 +365,51 @@ const Home = () => {
           </p>
         </div>
       </section>
-      <section
-        aria-labelledby="behind-the-build"
-        className="p-5 pb-0 sm:p-10 sm:pb-0 lg:p-14 lg:pb-0"
-      >
-        <Carousel
-          plugins={[plugin.current]}
-          opts={{
-            loop: true,
-          }}
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
+      {!loading && (
+        <section
+          aria-labelledby="behind-the-build"
+          className="p-5 pb-0 sm:p-10 sm:pb-0 lg:p-14 lg:pb-0"
         >
-          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[auto_2fr] md:gap-5">
-            <div className="flex h-full flex-col justify-end">
-              <h2
-                id="behind-the-build"
-                className="split w-[16ch] text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
-              >
-                Behind the build
-              </h2>
-              <div className="hidden justify-end gap-2 md:mt-[50%] md:flex">
+          <Carousel
+            plugins={[plugin.current]}
+            opts={{
+              loop: true,
+            }}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
+            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[auto_2fr] md:gap-5">
+              <div className="flex h-full flex-col justify-end">
+                <h2
+                  id="behind-the-build"
+                  className="split w-[16ch] text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
+                >
+                  Behind the build
+                </h2>
+                <div className="hidden justify-end gap-2 md:mt-[50%] md:flex">
+                  <CarouselPrevious className="relative" />
+                  <CarouselNext className="relative" />
+                </div>
+              </div>
+
+              <CarouselContent className="aspect-square md:aspect-video">
+                {behindTheBuild?.assetCollection.items.map((asset, index) => (
+                  <CarouselItem
+                    key={`${asset.title}-${index}`}
+                    className="rounded-[0.75rem] **:rounded-[0.75rem]"
+                  >
+                    <VideoPlayer videoUrl={asset.url} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
                 <CarouselPrevious className="relative" />
                 <CarouselNext className="relative" />
               </div>
             </div>
-
-            <CarouselContent className="aspect-square md:aspect-video">
-              {behindTheBuild?.assetCollection.items.map((asset, index) => (
-                <CarouselItem
-                  key={`${asset.title}-${index}`}
-                  className="rounded-[0.75rem] **:rounded-[0.75rem]"
-                >
-                  <VideoPlayer videoUrl={asset.url} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
-              <CarouselPrevious className="relative" />
-              <CarouselNext className="relative" />
-            </div>
-          </div>
-        </Carousel>
-      </section>
+          </Carousel>
+        </section>
+      )}
       <section
         aria-labelledby="start-project"
         className="grid grid-cols-1 gap-16 p-5 sm:p-10 md:grid-cols-2 md:gap-5 lg:p-14"
