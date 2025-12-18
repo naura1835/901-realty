@@ -19,14 +19,35 @@ const VideoPlayer = ({
   const [isPlaying, setIsPlaying] = useState(true);
   const [volumeOn, setVolumeOn] = useState(false);
   const [poster, setPoster] = useState<string>("");
+  const cacheKey = `poster:${videoUrl}`;
 
   useEffect(() => {
-    const generatePosterImage = async () => {
-      const posterUrl = await generatePoster(videoUrl);
-      setPoster(posterUrl as string);
+    let mounted = true;
+
+    const loadPoster = async () => {
+      try {
+        const cachedPoster = sessionStorage.getItem(cacheKey);
+        if (cachedPoster) {
+          setPoster(cachedPoster);
+          return;
+        }
+
+        const posterUrl = await generatePoster(videoUrl);
+        if (!mounted) return;
+
+        sessionStorage.setItem(cacheKey, posterUrl as string);
+        setPoster(posterUrl as string);
+      } catch {
+        // fail silently
+      }
     };
-    generatePosterImage();
-  }, [videoUrl]);
+
+    loadPoster();
+
+    return () => {
+      mounted = false;
+    };
+  }, [cacheKey, videoUrl]);
 
   useEffect(() => {
     const videoEl = videoRef.current;
