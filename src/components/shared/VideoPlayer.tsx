@@ -73,7 +73,7 @@ const VideoPlayer = ({
         muted
         playsInline
         preload="auto"
-        className="size-full min-h-[200px] object-cover"
+        className="size-full min-h-[200px] object-cover will-change-transform"
       >
         <source src={videoUrl} type="video/mp4" />
       </video>
