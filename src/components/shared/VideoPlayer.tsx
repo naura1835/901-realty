@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Pause, Play, Volume2, VolumeOff } from "lucide-react";
+import { generatePoster } from "@/lib/utils";
 
 const VideoPlayer = ({
   videoUrl,
@@ -17,6 +18,15 @@ const VideoPlayer = ({
   const soundRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [volumeOn, setVolumeOn] = useState(false);
+  const [poster, setPoster] = useState<string>("");
+
+  useEffect(() => {
+    const generatePosterImage = async () => {
+      const posterUrl = await generatePoster(videoUrl);
+      setPoster(posterUrl as string);
+    };
+    generatePosterImage();
+  }, [videoUrl]);
 
   useEffect(() => {
     const videoEl = videoRef.current;
@@ -73,6 +83,7 @@ const VideoPlayer = ({
         muted
         playsInline
         preload="auto"
+        poster={poster}
         className="size-full min-h-[200px] object-cover will-change-transform"
       >
         <source src={videoUrl} type="video/mp4" />
