@@ -113,7 +113,7 @@ const Works = () => {
             </div>
           </div>
           <div
-            className="scroll-height relative block w-full"
+            className="scroll-height relative hidden w-full md:block"
             style={{
               height: `${(data?.projectCollection?.items?.length || 5) * 10}vh`,
             }}

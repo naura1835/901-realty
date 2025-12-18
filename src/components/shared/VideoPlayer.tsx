@@ -72,8 +72,11 @@ const VideoPlayer = ({
         autoPlay={autoPlay}
         muted
         playsInline
+        preload="metadata"
         className="size-full object-cover"
-      />
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
 
       <Button
         size="icon"

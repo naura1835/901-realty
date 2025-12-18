@@ -364,7 +364,7 @@ const Home = () => {
       </section>
       <section
         aria-labelledby="behind-the-build"
-        className="p-5 sm:p-10 sm:pb-5 lg:p-14 lg:pb-5"
+        className="p-5 pb-0 sm:p-10 sm:pb-0 lg:p-14 lg:pb-0"
       >
         <Carousel
           plugins={[plugin.current]}
@@ -387,6 +387,7 @@ const Home = () => {
                 <CarouselNext className="relative" />
               </div>
             </div>
+
             <CarouselContent className="aspect-square md:aspect-video">
               {behindTheBuild?.assetCollection.items.map((asset, index) => (
                 <CarouselItem
@@ -397,6 +398,10 @@ const Home = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
+              <CarouselPrevious className="relative" />
+              <CarouselNext className="relative" />
+            </div>
           </div>
         </Carousel>
       </section>
