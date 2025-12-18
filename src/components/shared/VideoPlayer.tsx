@@ -51,16 +51,16 @@ const VideoPlayer = ({
 
   useEffect(() => {
     const videoEl = videoRef.current;
-    if (!videoEl) return;
+    if (!videoEl || !autoPlay) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (autoPlay) {
-            videoEl.play();
-          }
+          videoEl.play();
+          setIsPlaying(true);
         } else {
           videoEl.pause();
+          setIsPlaying(false);
         }
       },
       { threshold: 0.5 },
