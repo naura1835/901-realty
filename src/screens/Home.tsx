@@ -398,7 +398,7 @@ const Home = () => {
                     key={`${asset.title}-${index}`}
                     className="rounded-[0.75rem] **:rounded-[0.75rem]"
                   >
-                    <VideoPlayer videoUrl={asset.url} />
+                    <VideoPlayer videoUrl={asset.url} autoPlay={true} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
