@@ -10,6 +10,8 @@ export const generatePoster = (videoUrl: string) => {
     const video = document.createElement("video");
     video.crossOrigin = "anonymous";
     video.src = videoUrl;
+    video.muted = true;
+    video.playsInline = true;
 
     video.addEventListener("loadeddata", () => {
       // Seek to 1 second (or whatever frame you want)

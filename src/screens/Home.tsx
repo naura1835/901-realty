@@ -374,6 +374,7 @@ const Home = () => {
             plugins={[plugin.current]}
             opts={{
               loop: true,
+              duration: 60,
             }}
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
