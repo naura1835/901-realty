@@ -41,7 +41,6 @@ const VideoPlayer = ({
         // fail silently
       }
     };
-
     loadPoster();
 
     return () => {
@@ -103,7 +102,7 @@ const VideoPlayer = ({
         autoPlay={autoPlay}
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         poster={poster}
         className="size-full min-h-[200px] object-cover will-change-transform"
       >
