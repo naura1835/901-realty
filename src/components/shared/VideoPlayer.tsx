@@ -27,10 +27,20 @@ const VideoPlayer = ({
     const video = videoRef.current;
     if (!video) return;
 
-    const onPlay = () => setHasPlayed(true);
+    const onPlay = () => {
+      setIsPlaying(true);
+      setHasPlayed(true);
+    };
+    const onPause = () => {
+      setIsPlaying(false);
+    };
 
     video.addEventListener("play", onPlay);
-    return () => video.removeEventListener("play", onPlay);
+    video.addEventListener("pause", onPause);
+    return () => {
+      video.removeEventListener("play", onPlay);
+      video.removeEventListener("pause", onPause);
+    };
   }, []);
 
   useEffect(() => {
