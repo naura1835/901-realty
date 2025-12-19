@@ -225,6 +225,7 @@ const Home = () => {
             <Image
               src={"/smart-lock.jpg"}
               alt="construction"
+              loading="eager"
               height={3000}
               width={3000}
               className="object-fit h-full w-full"
@@ -287,6 +288,7 @@ const Home = () => {
             <Image
               src={"/IMG_20251208_184633_444.jpg"}
               alt="construction"
+              loading="eager"
               height={3000}
               width={3000}
               className="h-full w-full object-cover object-center"
@@ -296,6 +298,7 @@ const Home = () => {
             <Image
               src={"/IMG_20251208_184636_615.jpg"}
               alt="construction"
+              loading="eager"
               height={3000}
               width={3000}
               className="h-full w-full object-cover object-top"
@@ -324,6 +327,7 @@ const Home = () => {
             <Image
               src={"/901-realty-block.jpeg"}
               alt="blocks-stacked"
+              loading="eager"
               height={3000}
               width={3000}
               className="h-full w-full object-cover"
@@ -348,6 +352,7 @@ const Home = () => {
             <Image
               src={"/img-001.jpeg"}
               alt="construction"
+              loading="eager"
               height={3000}
               width={3000}
               className="h-full w-full object-cover object-center"
