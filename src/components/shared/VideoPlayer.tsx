@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Pause, Play, Volume2, VolumeOff } from "lucide-react";
 import { generatePoster } from "@/lib/utils";
+import Image from "next/image";
 
 const VideoPlayer = ({
   videoUrl,
@@ -20,7 +21,7 @@ const VideoPlayer = ({
   const [volumeOn, setVolumeOn] = useState(false);
   const [poster, setPoster] = useState<string>("");
   const cacheKey = `poster:${videoUrl}`;
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     let mounted = true;
@@ -97,19 +98,28 @@ const VideoPlayer = ({
 
   return (
     <div className={`relative size-full overflow-hidden`}>
-      <video
-        ref={videoRef}
-        src={videoUrl}
-        autoPlay={autoPlay}
-        muted
-        playsInline
-        preload="metadata"
-        poster={poster}
-        controls={!autoPlay && isIOS}
-        className="size-full min-h-[200px] object-cover will-change-transform"
-      >
-        <source src={videoUrl} type="video/mp4" />
-      </video>
+      {!autoPlay && poster && !isPlaying ? (
+        <Image
+          src={poster}
+          alt=""
+          aria-hidden
+          className="size-full min-h-[200px] object-cover will-change-transform"
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          autoPlay={autoPlay}
+          muted
+          playsInline
+          preload="metadata"
+          poster={poster}
+          // controls={!autoPlay && isIOS}
+          className="size-full min-h-[200px] object-cover will-change-transform"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      )}
 
       <Button
         size="icon"

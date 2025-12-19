@@ -62,7 +62,7 @@ const chooseUsItems = [
 
 const Home = () => {
   const homeRef = useRef<HTMLDivElement>(null);
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 60000, stopOnInteraction: true }));
   const { data: behindTheBuild, loading } = useQuery(
     GET_BEHIND_THE_BUILD_ASSETS,
     {
@@ -374,7 +374,6 @@ const Home = () => {
             plugins={[plugin.current]}
             opts={{
               loop: true,
-              duration: 60,
             }}
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
