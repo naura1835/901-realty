@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Pause, Play, Volume2, VolumeOff } from "lucide-react";
 import { generatePoster } from "@/lib/utils";
-import Image from "next/image";
 
 const VideoPlayer = ({
   videoUrl,
@@ -99,29 +98,20 @@ const VideoPlayer = ({
   console.log("poster", poster);
 
   return (
-    <div className={`relative size-full overflow-hidden`}>
-      {!autoPlay && poster && !isPlaying ? (
-        <Image
-          src={poster}
-          alt=""
-          aria-hidden
-          className="size-full min-h-[200px] object-cover will-change-transform"
-        />
-      ) : (
-        <video
-          ref={videoRef}
-          src={videoUrl}
-          autoPlay={autoPlay}
-          muted
-          playsInline
-          preload="metadata"
-          poster={poster}
-          // controls={!autoPlay && isIOS}
-          className="size-full min-h-[200px] object-cover will-change-transform"
-        >
-          <source src={videoUrl} type="video/mp4" />
-        </video>
-      )}
+    <div className={`bg-foreground/60 relative size-full overflow-hidden`}>
+      <video
+        ref={videoRef}
+        src={videoUrl}
+        autoPlay={autoPlay}
+        muted
+        playsInline
+        preload="metadata"
+        poster={poster}
+        // controls={!autoPlay && isIOS}
+        className="size-full min-h-[200px] object-cover will-change-transform"
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
 
       <Button
         size="icon"
