@@ -96,6 +96,8 @@ const VideoPlayer = ({
     setVolumeOn(newVolumeState);
   };
 
+  console.log("poster", poster);
+
   return (
     <div className={`relative size-full overflow-hidden`}>
       {!autoPlay && poster && !isPlaying ? (
