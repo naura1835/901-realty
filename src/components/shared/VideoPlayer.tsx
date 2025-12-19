@@ -20,6 +20,7 @@ const VideoPlayer = ({
   const [volumeOn, setVolumeOn] = useState(false);
   const [poster, setPoster] = useState<string>("");
   const cacheKey = `poster:${videoUrl}`;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     let mounted = true;
@@ -104,6 +105,7 @@ const VideoPlayer = ({
         playsInline
         preload="metadata"
         poster={poster}
+        controls={!autoPlay && isIOS}
         className="size-full min-h-[200px] object-cover will-change-transform"
       >
         <source src={videoUrl} type="video/mp4" />
