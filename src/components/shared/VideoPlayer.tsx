@@ -17,10 +17,21 @@ const VideoPlayer = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const soundRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [hasPlayed, setHasPlayed] = useState(false);
   const [volumeOn, setVolumeOn] = useState(false);
   const [poster, setPoster] = useState<string>("");
   const cacheKey = `poster:${videoUrl}`;
-  // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const onPlay = () => setHasPlayed(true);
+
+    video.addEventListener("play", onPlay);
+    return () => video.removeEventListener("play", onPlay);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -95,8 +106,6 @@ const VideoPlayer = ({
     setVolumeOn(newVolumeState);
   };
 
-  console.log("poster", poster);
-
   return (
     <div className={`bg-foreground/60 relative size-full overflow-hidden`}>
       <video
@@ -107,6 +116,7 @@ const VideoPlayer = ({
         playsInline
         preload="metadata"
         poster={poster}
+        controls={isIOS && !autoPlay && !hasPlayed}
         // controls={!autoPlay && isIOS}
         className="size-full min-h-[200px] object-cover will-change-transform"
       >
