@@ -66,18 +66,10 @@ const Home = () => {
   const { data: behindTheBuild, loading } = useQuery(
     GET_BEHIND_THE_BUILD_ASSETS,
     {
-      variables: {
-        titles: [
-          "completed toilet",
-          "Work in progress toilet build",
-          "Glass stair railing",
-          "decking",
-        ],
-        limit: 4,
-      },
       fetchPolicy: "cache-first",
     },
   );
+  console.log(behindTheBuild?.behindTheBuildCollection.items[0]);
 
   useGSAP(
     () => {
@@ -182,6 +174,7 @@ const Home = () => {
                         <Image
                           src={item.imgUrl}
                           alt="construction"
+                          loading="eager"
                           height={3000}
                           width={3000}
                           className="object-fit h-full w-full rounded-[0.75rem]"
@@ -398,14 +391,16 @@ const Home = () => {
               </div>
 
               <CarouselContent className="aspect-square md:aspect-video">
-                {behindTheBuild?.assetCollection.items.map((asset, index) => (
-                  <CarouselItem
-                    key={`${asset.title}-${index}`}
-                    className="rounded-[0.75rem] **:rounded-[0.75rem]"
-                  >
-                    <VideoPlayer videoUrl={asset.url} autoPlay={true} />
-                  </CarouselItem>
-                ))}
+                {behindTheBuild?.behindTheBuildCollection?.items[0]?.videosCollection?.items?.map(
+                  (asset, index) => (
+                    <CarouselItem
+                      key={`${asset.title}-${index}`}
+                      className="rounded-[0.75rem] **:rounded-[0.75rem]"
+                    >
+                      <VideoPlayer videoUrl={asset.url} autoPlay={true} />
+                    </CarouselItem>
+                  ),
+                )}
               </CarouselContent>
               <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
                 <CarouselPrevious className="relative" />
@@ -423,6 +418,7 @@ const Home = () => {
           <Image
             src={"/Image-2025-11-26.jpeg"}
             alt="construction"
+            loading="eager"
             height={3000}
             width={3000}
             className="h-full w-full object-cover object-bottom"

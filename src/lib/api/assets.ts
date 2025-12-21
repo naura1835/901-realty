@@ -1,32 +1,39 @@
 import { gql, TypedDocumentNode } from "@apollo/client";
 
 type Asset = {
-  fileName: string;
+  description: string;
   url: string;
   title: string;
 };
 
 type GetBehindTheBuildAssets = {
-  assetCollection: {
-    items: Asset[];
+  behindTheBuildCollection: {
+    items: [
+      {
+        title: string;
+        videosCollection: {
+          items: Asset[];
+        };
+      },
+    ];
   };
-};
-
-type GetBehindTheBuildVariables = {
-  titles: string[];
-  limit: number;
 };
 
 const GET_BEHIND_THE_BUILD_ASSETS: TypedDocumentNode<
   GetBehindTheBuildAssets,
-  GetBehindTheBuildVariables
+  void
 > = gql`
-  query Assets($titles: [String!]) {
-    assetCollection(where: { title_in: $titles }, limit: 4) {
+  query BehindTheBuild {
+    behindTheBuildCollection {
       items {
         title
-        fileName
-        url
+        videosCollection {
+          items {
+            url
+            title
+            description
+          }
+        }
       }
     }
   }
