@@ -48,7 +48,7 @@ const SmartProductDetails = () => {
                   {details?.galleryCollection?.items?.map((img, index) => (
                     <CarouselItem
                       key={index}
-                      className="h-[300px] min-w-[230px] basis-auto cursor-grab pl-1.5"
+                      className="h-[400px] min-w-[230px] basis-auto cursor-grab pl-1.5 md:h-[300px]"
                     >
                       <Image
                         src={img?.url}
