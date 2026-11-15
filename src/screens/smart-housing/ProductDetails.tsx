@@ -50,44 +50,21 @@ const SmartProductDetails = () => {
                       key={index}
                       className="h-[400px] basis-[230px] cursor-grab pl-1.5 md:h-[300px]"
                     >
-                      <Image
-                        src={img?.url}
-                        alt={
-                          img?.description || details?.name || "smart product"
-                        }
-                        fill
-                        sizes="(max-width: 768px) 100vw 50vw"
-                        className="h-full w-full object-cover"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                {/* <ScrollArea>
-                  <div className="flex justify-center gap-3">
-                    {details?.galleryCollection?.items?.map((img, index) => (
-                      <div
-                        key={index}
-                        className={`mt-8 size-20 rounded-md md:size-40 ${
-                          selectedIndex === index
-                            ? "inset-ring-foreground inset-ring-2"
-                            : ""
-                        }`}
-                        onClick={() => onThumbClick(index)}
-                      >
+                      <div className="relative h-full w-full overflow-hidden">
                         <Image
                           src={img?.url}
                           alt={
                             img?.description || details?.name || "smart product"
                           }
-                          height={3000}
-                          width={3000}
-                          className="h-full w-full rounded-md object-cover object-center"
+                          loading="eager"
+                          fill
+                          sizes="(max-width: 768px) 230px 300px"
+                          className="h-full w-full object-cover"
                         />
                       </div>
-                    ))}
-                  </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea> */}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
               </Carousel>
             ) : (
               details?.videoDemo?.url && (
