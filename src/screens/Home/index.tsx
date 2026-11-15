@@ -33,7 +33,6 @@ import {
   GET_BEHIND_THE_BUILD_ASSETS,
   GET_HERO_SECTION_VIDE0,
 } from "@/lib/api/assets";
-import { GET_PROJECTS } from "@/lib/api/projects";
 import SelectedWorks from "./components/SelectedWorks";
 import Products from "./components/Products";
 
@@ -149,6 +148,7 @@ const Home = () => {
             src={"/hero-img-desktop.png"}
             width={1400}
             height={1400}
+            preload
             className="hidden h-full w-full object-cover md:block lg:object-fill"
           />
           <VideoPlayer

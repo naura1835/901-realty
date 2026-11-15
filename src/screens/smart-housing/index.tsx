@@ -100,6 +100,7 @@ const SmartHousing = () => {
             alt="901 realty container in front of a house construction"
             height={3000}
             width={3000}
+            preload
             className="h-full w-full object-cover object-center"
           />
           <h1 className="split absolute top-1/2 left-1/2 w-[20ch] -translate-x-1/2 transform text-center text-4xl font-semibold text-white uppercase md:text-6xl">

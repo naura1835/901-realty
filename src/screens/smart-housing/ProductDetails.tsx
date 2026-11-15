@@ -2,7 +2,6 @@
 import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
-  CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -13,9 +12,8 @@ import {
 import { useQuery } from "@apollo/client/react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import VideoPlayer from "@/components/shared/VideoPlayer";
 import { Button } from "@/components/ui/button";
 import DialogWrapper from "@/components/shared/DialogWrapper";
@@ -24,8 +22,6 @@ import Footer from "@/components/shared/Footer";
 
 const SmartProductDetails = () => {
   const params = useParams<{ slug: string }>();
-  const [api, setApi] = useState<CarouselApi>();
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const { data, loading } = useQuery(GET_SMART_PRODUCTS_BY_SLUG, {
     variables: {
@@ -35,25 +31,6 @@ const SmartProductDetails = () => {
   });
   const details: SmartProduct | undefined =
     data?.smartHomeInnovationsCollection.items[0];
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    api.on("select", () => {
-      setSelectedIndex(api.selectedScrollSnap());
-      api.scrollTo(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  const onThumbClick = useCallback(
-    (index: number) => {
-      if (!api) return;
-      api.scrollTo(index);
-    },
-    [api],
-  );
 
   if (loading) return <></>;
 
@@ -66,7 +43,7 @@ const SmartProductDetails = () => {
         {details !== undefined && (
           <>
             {details?.galleryCollection?.items?.length ? (
-              <Carousel setApi={setApi}>
+              <Carousel>
                 <CarouselContent>
                   {details?.galleryCollection?.items?.map((img, index) => (
                     <CarouselItem
