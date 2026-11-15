@@ -44,13 +44,14 @@ type GetSingleProjectVariables = {
   slug: string;
 };
 
-const GET_PROJECTS: TypedDocumentNode<GetProjects, void> = gql`
-  query Projects {
-    projectCollection {
+const GET_PROJECTS: TypedDocumentNode<GetProjects, { limit?: number }> = gql`
+  query Projects($limit: Int) {
+    projectCollection(limit: $limit, order: sys_publishedAt_DESC) {
       total
       items {
         title
         slug
+        location
         featuredImage {
           url
           title

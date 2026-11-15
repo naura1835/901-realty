@@ -15,9 +15,9 @@ import {
   ItemDescription,
   ItemMedia,
 } from "@/components/ui/item";
-import LeafIcon from "../icons/leaf";
-import LightBulbIcon from "../icons/light-bulb";
-import ShieldIcon from "../icons/shield";
+import LeafIcon from "@/icons/leaf";
+import LightBulbIcon from "@/icons/light-bulb";
+import ShieldIcon from "@/icons/shield";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/shared/Footer";
@@ -26,10 +26,16 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useQuery } from "@apollo/client/react";
-import { GET_BEHIND_THE_BUILD_ASSETS } from "@/lib/api/assets";
+import {
+  GET_BEHIND_THE_BUILD_ASSETS,
+  GET_HERO_SECTION_VIDE0,
+} from "@/lib/api/assets";
+import { GET_PROJECTS } from "@/lib/api/projects";
+import SelectedWorks from "./components/SelectedWorks";
+import Products from "./components/Products";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP);
 
@@ -62,14 +68,18 @@ const chooseUsItems = [
 
 const Home = () => {
   const homeRef = useRef<HTMLDivElement>(null);
-  const plugin = useRef(Autoplay({ delay: 60000, stopOnInteraction: true }));
+  const [plugin] = useState(() =>
+    Autoplay({ delay: 60000, stopOnInteraction: true }),
+  );
+  const { data: heroVideo } = useQuery(GET_HERO_SECTION_VIDE0, {
+    fetchPolicy: "cache-first",
+  });
   const { data: behindTheBuild, loading } = useQuery(
     GET_BEHIND_THE_BUILD_ASSETS,
     {
       fetchPolicy: "cache-first",
     },
   );
-  console.log(behindTheBuild?.behindTheBuildCollection.items[0]);
 
   useGSAP(
     () => {
@@ -132,13 +142,27 @@ const Home = () => {
 
   return (
     <div ref={homeRef}>
-      <div className="h-screen w-full">
-        <VideoPlayer videoUrl="/img_3120_v1-1.mp4" autoPlay showVolumeBtn />
+      <div className="mg:*:flex-1 relative h-screen w-full bg-[#212529] md:flex md:items-end md:py-8 md:pr-8 lg:gap-10 lg:px-14">
+        <div className="h-screen md:absolute md:inset-0">
+          <Image
+            alt="modern brick home"
+            src={"/hero-img-desktop.png"}
+            width={1400}
+            height={1400}
+            className="hidden h-full w-full object-cover md:block lg:object-fill"
+          />
+          <VideoPlayer
+            poster="/901-realty-video-poster.jpg"
+            videoUrl={heroVideo?.assetCollection?.items?.[0]?.url || ""}
+            autoPlay
+            className="md:hidden"
+          />
+        </div>
       </div>
       <div className="mt-9 px-5 md:mt-16 lg:px-14">
-        <h1 className="mx-auto mb-1 w-full max-w-[880px] text-center text-2xl leading-[130%] font-medium uppercase sm:text-4xl lg:text-5xl">
+        <h2 className="mx-auto mb-1 w-full max-w-[880px] text-center text-2xl leading-[130%] font-medium uppercase sm:text-4xl lg:text-5xl">
           Crafting Modern Spaces with Expertise, Innovation & Trust
-        </h1>
+        </h2>
         <p className="text-center text-base font-medium md:text-lg">
           At 901 Realty, we don&apos;t just construct buildings. we create
           lasting spaces that blend functionality, beauty, and sustainability.
@@ -205,6 +229,10 @@ const Home = () => {
           </Carousel>
         </section>
       </div>
+
+      <SelectedWorks />
+      <Products />
+
       <section
         aria-labelledby="services we offer"
         id="services"
@@ -363,53 +391,53 @@ const Home = () => {
           </p>
         </div>
       </section>
-      {!loading && (
-        <section
-          aria-labelledby="behind-the-build"
-          className="p-5 pb-0 sm:p-10 sm:pb-0 lg:p-14 lg:pb-0"
-        >
-          <Carousel
-            plugins={[plugin.current]}
-            opts={{
-              loop: true,
-            }}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+      {!loading &&
+        behindTheBuild?.behindTheBuildCollection?.items[0]?.videosCollection
+          ?.items?.length && (
+          <section
+            aria-labelledby="behind-the-build"
+            className="p-5 pb-0 sm:p-10 sm:pb-0 lg:p-14 lg:pb-0"
           >
-            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[auto_2fr] md:gap-5">
-              <div className="flex h-full flex-col justify-end">
-                <h2
-                  id="behind-the-build"
-                  className="split w-[16ch] text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
-                >
-                  Behind the build
-                </h2>
-                <div className="hidden justify-end gap-2 md:mt-[50%] md:flex">
+            <Carousel
+              plugins={[plugin]}
+              opts={{ loop: true }}
+              onMouseEnter={plugin.stop}
+              onMouseLeave={plugin.reset}
+            >
+              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[auto_2fr] md:gap-5">
+                <div className="flex h-full flex-col justify-end">
+                  <h2
+                    id="behind-the-build"
+                    className="split w-[16ch] text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
+                  >
+                    Behind the build
+                  </h2>
+                  <div className="hidden justify-end gap-2 md:mt-[50%] md:flex">
+                    <CarouselPrevious className="relative" />
+                    <CarouselNext className="relative" />
+                  </div>
+                </div>
+
+                <CarouselContent className="aspect-square md:aspect-video">
+                  {behindTheBuild?.behindTheBuildCollection?.items[0]?.videosCollection?.items?.map(
+                    (asset, index) => (
+                      <CarouselItem
+                        key={`${asset.title}-${index}`}
+                        className="rounded-[0.75rem] **:rounded-[0.75rem]"
+                      >
+                        <VideoPlayer videoUrl={asset.url} autoPlay={true} />
+                      </CarouselItem>
+                    ),
+                  )}
+                </CarouselContent>
+                <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
                   <CarouselPrevious className="relative" />
                   <CarouselNext className="relative" />
                 </div>
               </div>
-
-              <CarouselContent className="aspect-square md:aspect-video">
-                {behindTheBuild?.behindTheBuildCollection?.items[0]?.videosCollection?.items?.map(
-                  (asset, index) => (
-                    <CarouselItem
-                      key={`${asset.title}-${index}`}
-                      className="rounded-[0.75rem] **:rounded-[0.75rem]"
-                    >
-                      <VideoPlayer videoUrl={asset.url} autoPlay={true} />
-                    </CarouselItem>
-                  ),
-                )}
-              </CarouselContent>
-              <div className="flex justify-end gap-2 md:mt-[50%] md:hidden">
-                <CarouselPrevious className="relative" />
-                <CarouselNext className="relative" />
-              </div>
-            </div>
-          </Carousel>
-        </section>
-      )}
+            </Carousel>
+          </section>
+        )}
       <section
         aria-labelledby="start-project"
         className="grid grid-cols-1 gap-16 p-5 sm:p-10 md:grid-cols-2 md:gap-5 lg:p-14"

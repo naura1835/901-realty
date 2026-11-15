@@ -102,8 +102,8 @@ const SmartHousing = () => {
             width={3000}
             className="h-full w-full object-cover object-center"
           />
-          <h1 className="split absolute top-1/2 left-1/2 w-[12ch] -translate-x-1/2 transform text-4xl font-semibold text-white uppercase md:text-6xl">
-            Smart living
+          <h1 className="split absolute top-1/2 left-1/2 w-[20ch] -translate-x-1/2 transform text-center text-4xl font-semibold text-white uppercase md:text-6xl">
+            The 901 Collection
           </h1>
         </div>
         <section className="relative grid grid-cols-1 gap-8 overflow-hidden p-5 sm:p-10 md:grid-cols-2 md:gap-y-0 lg:px-14">
@@ -112,15 +112,15 @@ const SmartHousing = () => {
               id="smart-housing"
               className="split-sub-heading text-2xl font-medium uppercase md:text-3xl lg:text-4xl"
             >
-              Smarter Homes,
-              <br /> Smarter Living
+              Exceptional Spaces,
+              <br /> Extraordinary Living
             </h2>
             <p>
-              At 901 Realty, we believe a home should do more than provide
-              shelter. it should simplify your life, save energy, and keep you
-              secure. That&apos;s why we bring you the latest in smart housing
-              gadgets and solutions designed to fit seamlessly into modern
-              living
+              At 901 Realty, we believe the right products can transform the way
+              you live. From innovative technology to practical everyday
+              essentials, we bring you thoughtfully selected products and
+              solutions designed to make life easier, more comfortable, and more
+              convenient.
             </p>
             <div className="space-y-2">
               <Item className="flex-col items-start gap-0 p-0">
@@ -130,28 +130,30 @@ const SmartHousing = () => {
                   </p>
                 </ItemTitle>
                 <ItemDescription className="text-foreground font-medium">
-                  Control your home anytime, anywhere.
+                  Discover practical solutions designed to simplify your
+                  routines.
                 </ItemDescription>
               </Item>
               <Item className="flex-col items-start gap-0 p-0">
                 <ItemTitle>
                   <p className="text-sm font-medium uppercase md:text-base">
-                    Efficiency
+                    Innovation
                   </p>
                 </ItemTitle>
                 <ItemDescription className="text-foreground font-medium">
-                  Save energy and reduce costs with smart automation.
+                  Explore modern products and technologies that bring greater
+                  functionality, comfort, and convenience to your everyday life.
                 </ItemDescription>
               </Item>
               <Item className="flex-col items-start gap-0 p-0">
                 <ItemTitle>
                   <p className="text-sm font-medium uppercase md:text-base">
-                    Security
+                    Quality
                   </p>
                 </ItemTitle>
                 <ItemDescription className="text-foreground font-medium">
-                  Protect your family with advanced surveillance and safety
-                  systems.
+                  Discover thoughtfully selected solutions that combine
+                  functionality, reliability, and lasting value.
                 </ItemDescription>
               </Item>
             </div>
@@ -176,18 +178,14 @@ const SmartHousing = () => {
               >
                 Browse our collection
               </h2>
-              <div className="grid gap-10 md:grid-cols-2">
-                {/* {Array.from({ length: 10 })
-                .flatMap(
-                  () => data?.smartHomeInnovationsCollection?.items || [],
-                ) */}
+              <div className="grid gap-8 md:grid-cols-2">
                 <Suspense fallback={<ProductSkeleton />}>
                   {data?.smartHomeInnovationsCollection?.items?.map(
                     (item, index) => (
                       <Link
                         key={`${item?.slug}-${index}`}
                         href={`/smart-housing/${item?.slug}`}
-                        className="product w-full max-w-[90%] odd:justify-self-start even:justify-self-end" /**md:nth-[3n]:self-center md:nth-[3n]:justify-self-end md:[&:nth-child(4n)>div>div]:h-[450px] */
+                        className="product w-full odd:justify-self-start even:justify-self-end" /**md:nth-[3n]:self-center md:nth-[3n]:justify-self-end md:[&:nth-child(4n)>div>div]:h-[450px] */
                       >
                         <div className="flex flex-col gap-2">
                           <p className="text-sm font-semibold uppercase">

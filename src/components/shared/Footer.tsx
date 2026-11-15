@@ -12,7 +12,7 @@ gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP);
 const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
   { id: 1, title: "Works", url: "/works" },
-  { id: 2, title: "Smart housing", url: "/smart-housing" },
+  { id: 2, title: "Products", url: "/smart-housing" },
   { id: 3, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];
 
@@ -93,7 +93,7 @@ const Footer = () => {
             privacy policy
           </li>
           <li className="text-center text-xs font-semibold uppercase">
-            © 2025 901REALTY
+            © {new Date().getFullYear()} 901REALTY
           </li>
           <li className="text-center text-xs font-semibold uppercase">
             MADE BY NAURACODES

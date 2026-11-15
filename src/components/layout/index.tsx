@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const menuItems = [
   { id: 0, title: "About us", url: "/about-us" },
   { id: 1, title: "Works", url: "/works" },
-  { id: 2, title: "Smart housing", url: "/smart-housing" },
+  { id: 2, title: "Products", url: "/smart-housing" },
   { id: 3, title: "Services", url: "/#services" },
   { id: 4, title: "Get in touch", style: "link-btn", url: "/contact-us" },
 ];
@@ -47,6 +47,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             alt="901 Realty logo"
             height={500}
             width={500}
+            loading="eager"
             className="h-10 w-fit mix-blend-difference invert"
           />
         </Link>

@@ -61,21 +61,17 @@ const SmartProductDetails = () => {
     <>
       <section
         aria-labelledby="title"
-        className="relative mt-[100px] grid min-h-screen grid-cols-1 gap-16 p-5 sm:p-10 lg:px-14"
+        className="relative mt-[100px] grid min-h-screen grid-cols-1 gap-8 p-5 sm:p-10 lg:px-14"
       >
         {details !== undefined && (
           <>
-            {details?.videoDemo?.url ? (
-              <div className="h-[350px] w-full rounded-md md:h-[500px]">
-                <VideoPlayer videoUrl={details?.videoDemo?.url} />
-              </div>
-            ) : details?.galleryCollection?.items?.length ? (
+            {details?.galleryCollection?.items?.length ? (
               <Carousel setApi={setApi}>
                 <CarouselContent>
                   {details?.galleryCollection?.items?.map((img, index) => (
                     <CarouselItem
                       key={index}
-                      className="h-[350px] w-full rounded-md md:h-[500px]"
+                      className="h-[300px] min-w-[230px] basis-auto cursor-grab pl-1.5"
                     >
                       <Image
                         src={img?.url}
@@ -84,12 +80,12 @@ const SmartProductDetails = () => {
                         }
                         height={3000}
                         width={3000}
-                        className="h-full w-full rounded-md object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <ScrollArea>
+                {/* <ScrollArea>
                   <div className="flex justify-center gap-3">
                     {details?.galleryCollection?.items?.map((img, index) => (
                       <div
@@ -108,16 +104,20 @@ const SmartProductDetails = () => {
                           }
                           height={3000}
                           width={3000}
-                          className="h-full w-full rounded-md object-cover object-top"
+                          className="h-full w-full rounded-md object-cover object-center"
                         />
                       </div>
                     ))}
                   </div>
                   <ScrollBar orientation="horizontal" />
-                </ScrollArea>
+                </ScrollArea> */}
               </Carousel>
             ) : (
-              <></>
+              details?.videoDemo?.url && (
+                <div className="h-[350px] w-full rounded-md md:h-[500px]">
+                  <VideoPlayer videoUrl={details?.videoDemo?.url} />
+                </div>
+              )
             )}
             <div className="mx-auto flex w-full max-w-[800px] flex-col items-center gap-4">
               <p className="text-sm font-semibold uppercase">
@@ -139,6 +139,12 @@ const SmartProductDetails = () => {
               </div>
               <div className="font-medium">
                 {documentToReactComponents(details?.description?.json)}
+                {/* {details?.videoDemo?.url && (
+                  <div className="h-[350px] w-full rounded-md md:h-[500px]">
+                    <VideoPlayer videoUrl={details?.videoDemo?.url} />
+                  </div>
+                )} */}
+
                 <div className="mt-2 flex text-base font-medium">
                   <p>Interested in this product? </p>
                   <Button
