@@ -55,9 +55,9 @@ const SmartProductDetails = () => {
                         alt={
                           img?.description || details?.name || "smart product"
                         }
-                        fill
-                        sizes="(min-width: 768px) 300px, 230px"
-                        className="object-cover"
+                        height={3000}
+                        width={3000}
+                        className="h-full w-full object-cover"
                       />
                     </CarouselItem>
                   ))}
