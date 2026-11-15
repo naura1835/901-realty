@@ -48,16 +48,16 @@ const SmartProductDetails = () => {
                   {details?.galleryCollection?.items?.map((img, index) => (
                     <CarouselItem
                       key={index}
-                      className="h-auto min-w-[230px] basis-auto cursor-grab pl-1.5 md:h-[300px]"
+                      className="h-[400px] min-w-[230px] shrink-0 grow-0 basis-auto cursor-grab pl-1.5 md:h-[300px]"
                     >
                       <Image
                         src={img?.url}
                         alt={
                           img?.description || details?.name || "smart product"
                         }
-                        height={3000}
-                        width={3000}
-                        className="h-full w-full object-cover"
+                        fill
+                        sizes="(min-width: 768px) 300px, 230px"
+                        className="object-cover"
                       />
                     </CarouselItem>
                   ))}
